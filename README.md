@@ -1,19 +1,8 @@
-
-<p><image src="https://raw.githubusercontent.com/voroninadm/in-pet-box/master/storage/app/img/box-ok.webp"></image></p>
-
-
 <img src="storage/app/img/readme_logos.webp" alt="logos">
 
-#"in-pet-box"
+<h1>in-pet-box. Fullstack pet-project</h1>
 
-<p><image style="width: 120px;" src="https://raw.githubusercontent.com/voroninadm/pet-box/master/frontend/src/assets/img/box-ok.webp"></image></p>
+<p><img src="storage/app/img/box-ok.webp"></p>
 
-**Fullstack pet-project**
-### В проекте использовано:
-
-- Frontend - Vue3
-- Backend - Laravel
-- InertiaJS
-
-
-
+Программа для отслеживания товара на складе. 
+Написано с использованием Laravel, Vue3, InertiaJs, Vite, TailwindCss
