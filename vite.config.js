@@ -1,11 +1,12 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
+import { fileURLToPath, URL } from "url";
 
 export default defineConfig({
     server: {
         hmr: {
-            host: 'localhost'
+            host: 'localhost',
         }
     },
     plugins: [
@@ -22,4 +23,10 @@ export default defineConfig({
             },
         }),
     ],
+    resolve: {
+        alias: {
+            "@/*": fileURLToPath(new URL("resources/js/", import.meta.url)),
+            "@assets": fileURLToPath(new URL("resources/assets/", import.meta.url)),
+        },
+    },
 });
