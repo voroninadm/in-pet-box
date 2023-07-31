@@ -67,22 +67,22 @@ const getImgNumber = (min, max) => {
   margin: auto;
 
   &__1 {
-    background: url("/storage/app/img/box-1.webp") 50% 50% no-repeat;
+    background: url("/img/box-1.webp") 50% 50% no-repeat;
     background-size: contain;
   }
 
   &__2 {
-    background: url("/storage/app/img/box-2.webp") 50% 50% no-repeat;
+    background: url("/img/box-2.webp") 50% 50% no-repeat;
     background-size: contain;
   }
 
   &__3 {
-    background: url("/storage/app/img/box-3.webp") 50% 50% no-repeat;
+    background: url("/img/box-3.webp") 50% 50% no-repeat;
     background-size: contain;
   }
 
   &__4 {
-    background: url("/storage/app/img/box-4.webp") 50% 50% no-repeat;
+    background: url("/img/box-4.webp") 50% 50% no-repeat;
     background-size: contain;
   }
 }

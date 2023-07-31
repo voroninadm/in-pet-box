@@ -162,7 +162,7 @@ const showingNavigationDropdown = ref(false);
 
 <style scoped>
 .bg-dots-darker {
-    background-image: url("/storage/app/icons/simpleBox.svg");}
+    background-image: url("/icons/simpleBox.svg");}
 
 @media (prefers-color-scheme: dark) {
     .dark\:bg-dots-lighter {
