@@ -1,5 +1,2 @@
-*
-!public/
-!.gitignore
-!public/img/
-!public/icons
+public/
+.gitignore

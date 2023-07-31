@@ -2,7 +2,7 @@
 <p><image src="https://raw.githubusercontent.com/voroninadm/in-pet-box/master/storage/app/img/box-ok.webp"></image></p>
 
 
-<img src="storage/app/public/img/readme_logos.webp" alt="logos">
+<img src="storage/app/img/readme_logos.webp" alt="logos">
 
 #"in-pet-box"
 
