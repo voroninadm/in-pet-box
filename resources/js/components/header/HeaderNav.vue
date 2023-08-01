@@ -20,7 +20,6 @@ const emailInput = ref(null);
 
 const tryToLogin = () => {
     isLoginModalOpen.value = true;
-
     nextTick(() => emailInput.value.focus());
 };
 
@@ -47,10 +46,11 @@ const submit = () => {
     });
 }
 
-const getImgNumber = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+// get random number and add its class to modal image
+let modalImg = ref(null);
+const getImgNumber = () => {
+    return modalImg = Math.floor(Math.random() * (maxBoxImage - minBoxImage + 1)) + minBoxImage;
 };
-// const modalImg =getImgNumber();
 </script>
 
 <template>
@@ -144,7 +144,7 @@ const getImgNumber = (min, max) => {
                         </svg>
                     </button>
                 </div>
-                <button v-else type="button" @click="tryToLogin">
+                <button v-else type="button" @click="tryToLogin(); getImgNumber();">
                     <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                         <path
                             d="M16.64 20.67a1 1 0 1 0 1.42 1.41l5.9-6.06-5.9-6.06a1 1 0 0 0-1.42 1.41L20.26 15H.99a1 1 0 0 0 0 2h19.33zM30 0H12a2 2 0 0 0-2 2v9h2.02V3.22c0-.67.54-1.21 1.2-1.21h15.53c.67 0 1.21.54 1.21 1.21l.03 25.57a1.2 1.2 0 0 1-1.2 1.21H13.22a1.2 1.2 0 0 1-1.21-1.2v-7.83H10V30c0 1.1.9 2 2 2h18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
@@ -190,7 +190,7 @@ const getImgNumber = (min, max) => {
                 <div >
                     <div
                         class="login_img"
-                        :class="`login_img__${getImgNumber(minBoxImage,maxBoxImage)}`"
+                        :class="`login_img__${modalImg}`"
                     />
                     <div>
                         <InputLabel for="email" value="Email"/>
