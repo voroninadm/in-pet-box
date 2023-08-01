@@ -1,22 +1,63 @@
 <script setup>
-import {ref} from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
-import NavLink from '@/Components/NavLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import {Link} from '@inertiajs/vue3';
-import LoginButton from '@/Components/Buttons/LoginButton.vue';
+import {computed, nextTick, ref} from 'vue';
+import ApplicationLogo from '@/components/ApplicationLogo.vue';
+import Dropdown from '@/components/Dropdown.vue';
+import DropdownLink from '@/components/DropdownLink.vue';
+import ResponsiveNavLink from '@/components/ResponsiveNavLink.vue';
+import Modal from '@/components/Modal.vue';
+import {Link, useForm} from '@inertiajs/vue3';
+import {minBoxImage, maxBoxImage} from "@/common/constants.js";
+import Checkbox from '@/components/Checkbox.vue';
+import InputError from '@/components/InputError.vue';
+import InputLabel from '@/components/InputLabel.vue';
+import PrimaryButton from '@/components/PrimaryButton.vue';
+import TextInput from '@/components/TextInput.vue';
+
 
 const showingNavigationDropdown = ref(false);
+const isLoginModalOpen = ref(false);
+const emailInput = ref(null);
 
+const tryToLogin = () => {
+    isLoginModalOpen.value = true;
+
+    nextTick(() => emailInput.value.focus());
+};
+
+const closeModal = () => {
+    isLoginModalOpen.value = false;
+    form.reset();
+};
+
+const form = useForm({
+    email: '',
+    password: '',
+    remember: false,
+});
+
+const submit = () => {
+    form.post(route('login'), {
+        onFinish: () => {
+            form.reset();
+            isLoginModalOpen.value = false;
+        },
+        onSuccess: () => {
+            form.reset();
+        }
+    });
+}
+
+const getImgNumber = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+// const modalImg =getImgNumber();
 </script>
 
 <template>
-    <nav class="bg-white border-b border-gray-100">
+    <nav class="bg-white border-b border-gray-100 absolute w-full">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-dots-darker">
-            <div class="flex justify-between h-16">
+            <div class="flex justify-between h-12">
                 <div class="flex">
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center">
@@ -103,13 +144,13 @@ const showingNavigationDropdown = ref(false);
                         </svg>
                     </button>
                 </div>
-                <NavLink v-else :href="route('login')">
+                <button v-else type="button" @click="tryToLogin">
                     <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                         <path
                             d="M16.64 20.67a1 1 0 1 0 1.42 1.41l5.9-6.06-5.9-6.06a1 1 0 0 0-1.42 1.41L20.26 15H.99a1 1 0 0 0 0 2h19.33zM30 0H12a2 2 0 0 0-2 2v9h2.02V3.22c0-.67.54-1.21 1.2-1.21h15.53c.67 0 1.21.54 1.21 1.21l.03 25.57a1.2 1.2 0 0 1-1.2 1.21H13.22a1.2 1.2 0 0 1-1.21-1.2v-7.83H10V30c0 1.1.9 2 2 2h18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
                         />
                     </svg>
-                </NavLink>
+                </button>
             </div>
         </div>
 
@@ -142,9 +183,66 @@ const showingNavigationDropdown = ref(false);
             </div>
         </div>
     </nav>
+
+    <Modal :show="isLoginModalOpen" @close="closeModal">
+        <div class="m-4  bg-white rounded-lg p-2">
+            <form class="flex flex-col" @submit.prevent="submit">
+                <div >
+                    <div
+                        class="login_img"
+                        :class="`login_img__${getImgNumber(minBoxImage,maxBoxImage)}`"
+                    />
+                    <div>
+                        <InputLabel for="email" value="Email"/>
+
+                        <TextInput
+                            id="email"
+                            type="email"
+                            class="mt-1 block w-full"
+                            ref="emailInput"
+                            v-model="form.email"
+                            required
+                            autofocus
+                        />
+
+                        <InputError class="mt-2" :message="form.errors.email"/>
+                    </div>
+
+                    <div>
+                        <InputLabel for="password" value="Password"/>
+
+                        <TextInput
+                            id="password"
+                            type="password"
+                            class="mt-1 block w-full"
+                            v-model="form.password"
+                            required
+                        />
+
+                        <InputError class="mt-2" :message="form.errors.password"/>
+                    </div>
+
+                    <div class="flex justify-center mt-2">
+                        <label class="flex items-center">
+                            <Checkbox name="remember" v-model:checked="form.remember"/>
+                            <span class="ml-2 text-sm text-gray-600">Запомнить меня</span>
+                        </label>
+                    </div>
+
+                    <div class="flex justify-center mt-2">
+                        <PrimaryButton class="justify-center w-1/4"
+                                       :class="{ 'opacity-25': form.processing }"
+                                       :disabled="form.processing">
+                            Войти
+                        </PrimaryButton>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </Modal>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .bg-dots-darker {
     background-image: url("@assets/icons/simpleBox.svg");
 }
@@ -154,8 +252,31 @@ const showingNavigationDropdown = ref(false);
         /*background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E");*/
         background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 24 24' fill='none' path stroke='#323232' stroke-width='2' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 15.83V8c0-.3.17-.6.44-.75h.01l7.17-4.04.05-.03a.7.7 0 0 1 .66 0l7.28 4.1c.24.14.39.4.39.67v7.88a.8.8 0 0 1-.4.69l-7.22 4.26a.75.75 0 0 1-.76 0L4.4 16.52a.8.8 0 0 1-.39-.7ZM12 21v-9m0 0L4 7.5m16 0L12 12')fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E");
     }
+}
 
-    /*fill="none"<path stroke="#323232" stroke-width="2"*/
+.login_img {
+    width: 250px;
+    height: 200px;
+    margin: auto;
 
+    &__1 {
+        background: url("@assets/img/box-1.webp") 50% 50% no-repeat;
+        background-size: contain;
+    }
+
+    &__2 {
+        background: url("@assets/img/box-2.webp") 50% 50% no-repeat;
+        background-size: contain;
+    }
+
+    &__3 {
+        background: url("@assets/img/box-3.webp") 50% 50% no-repeat;
+        background-size: contain;
+    }
+
+    &__4 {
+        background: url("@assets/img/box-4.webp") 50% 50% no-repeat;
+        background-size: contain;
+    }
 }
 </style>

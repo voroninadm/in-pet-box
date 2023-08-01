@@ -11,8 +11,8 @@
 
 <script setup>
 import { ref } from "vue";
-import DefaultHeader from "@/Components/Header/DefaultHeader.vue";
-import LoginModal from "@/Components/modules/LoginModal.vue";
+import DefaultHeader from "@/components/header/DefaultHeader.vue";
+import LoginModal from "@/components/modules/LoginModal.vue";
 
 let isLoginOpen = ref(false);
 </script>
