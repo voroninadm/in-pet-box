@@ -1,14 +1,12 @@
 <script setup>
-import HeaderNav from '@/components/header/HeaderNav.vue';
+import HeaderNav from '@/components/modules/HeaderNav.vue';
 </script>
 
 <template>
-    <div>
-        <div class="min-h-screen bg-gray-100">
-            <header-nav />
-            <main>
-                <slot />
-            </main>
-        </div>
+    <div class="app_layout">
+        <header-nav />
+        <main>
+            <slot />
+        </main>
     </div>
 </template>

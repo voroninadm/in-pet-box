@@ -4,7 +4,7 @@
     enter-active-class="animate__animated animate__slideInDown"
   >
     <section
-      class="product w-3/4 md:w-2/4 lg:w-1/3 xl:w-1/4 mt-5 border drop-shadow-xl p-3 bg-slate-50"
+      class="product w-3/4 md:w-2/4 lg:w-1/3 xl:w-1/4 border drop-shadow-xl p-3 bg-slate-50"
     >
       <div class="product__image"></div>
       <h1 class="text-center text-lg">Карточка товара</h1>
@@ -74,7 +74,7 @@ const box = props.box ? props.box : createNewBox();
 .product__image {
   width: 200px;
   height: 200px;
-  background: url("@/assets/img/box-adding.webp") 50% 50% no-repeat;
+  background: url("@assets/img/box-adding.webp") 50% 50% no-repeat;
   background-size: contain;
   margin: auto;
 }

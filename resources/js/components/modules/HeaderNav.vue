@@ -13,7 +13,6 @@ import InputLabel from '@/components/InputLabel.vue';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import TextInput from '@/components/TextInput.vue';
 
-
 const showingNavigationDropdown = ref(false);
 const isLoginModalOpen = ref(false);
 const emailInput = ref(null);
@@ -54,7 +53,7 @@ const getImgNumber = () => {
 </script>
 
 <template>
-    <nav class="bg-white border-b border-gray-100 absolute w-full">
+    <nav class="bg-white border-b border-gray-100 w-full">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-dots-darker">
             <div class="flex justify-between h-12">
@@ -65,6 +64,32 @@ const getImgNumber = () => {
                             <ApplicationLogo
                                 class="block h-9 w-auto fill-current text-gray-800"
                             />
+                        </Link>
+                        <Link v-if="$page.props.auth.user" :href="route('box.create')">
+                            <svg
+                                class="adding_icon"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                            >
+                                <g
+                                    fill="none"
+                                    stroke="#000"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                >
+                                    <rect
+                                        width="20"
+                                        height="20"
+                                        x="2"
+                                        y="2"
+                                        data-name="--Rectangle"
+                                        rx="2"
+                                        ry="2"
+                                    />
+                                    <path d="M15.5 12h-7m3.5 3.5v-7" />
+                                </g>
+                            </svg>
                         </Link>
                     </div>
 
@@ -278,5 +303,11 @@ const getImgNumber = () => {
         background: url("@assets/img/box-4.webp") 50% 50% no-repeat;
         background-size: contain;
     }
+}
+
+.adding_icon{
+    width: 25px;
+    height: 25px;
+    margin: 0 20px;
 }
 </style>

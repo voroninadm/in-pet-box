@@ -17,13 +17,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Hello', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-})->name('main');
+    return Inertia::render('Hello');})->name('main');
 
 Route::get('/home', function () {
     return Inertia::render('HomePage');
@@ -38,5 +32,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/box/create', function () {
+    return Inertia::render('CreateBox');
+})->middleware(['auth', 'verified'])->name('box.create');
 
 require __DIR__.'/auth.php';

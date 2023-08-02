@@ -1,29 +1,29 @@
 <template>
   <div class="shelves">
-    <div
-      v-for="box in boxes"
-      :key="box.id"
-      tabindex="0"
-      class="box"
-      :class="[
-        `box-${box.cell}`,
-        isHoldingDateExpired(box.date_add) ? 'box-forgotten' : 'box-ok',
-      ]"
-      @click="$emit('clickToBox', box.id)"
-      @keyup.enter="$emit('clickToBox', box.id)"
-    />
+<!--    <div-->
+<!--      v-for="box in boxes"-->
+<!--      :key="box.id"-->
+<!--      tabindex="0"-->
+<!--      class="box"-->
+<!--      :class="[-->
+<!--        `box-${box.cell}`,-->
+<!--        isHoldingDateExpired(box.date_add) ? 'box-forgotten' : 'box-ok',-->
+<!--      ]"-->
+<!--      @click="$emit('clickToBox', box.id)"-->
+<!--      @keyup.enter="$emit('clickToBox', box.id)"-->
+<!--    />-->
   </div>
 </template>
 
 <script setup>
 import { isHoldingDateExpired } from "@/common/helpers";
 
-defineProps({
-  boxes: {
-    type: Array,
-    required: true,
-  },
-});
+// defineProps({
+//   boxes: {
+//     type: Array,
+//     required: true,
+//   },
+// });
 
 defineEmits(["clickToBox"]);
 </script>
@@ -33,7 +33,7 @@ defineEmits(["clickToBox"]);
   width: 100vw;
   height: 100vh;
   position: relative;
-  background-image: url("@/assets/img/shelves.webp");
+  background-image: url("@assets/img/shelves.webp");
   background-size: cover;
 }
 
