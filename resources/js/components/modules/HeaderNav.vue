@@ -1,5 +1,5 @@
 <script setup>
-import {computed, nextTick, ref} from 'vue';
+import {nextTick, ref} from 'vue';
 import ApplicationLogo from '@/components/ApplicationLogo.vue';
 import Dropdown from '@/components/Dropdown.vue';
 import DropdownLink from '@/components/DropdownLink.vue';

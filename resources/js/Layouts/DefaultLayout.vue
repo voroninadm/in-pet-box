@@ -10,3 +10,10 @@ import HeaderNav from '@/components/modules/HeaderNav.vue';
         </main>
     </div>
 </template>
+
+<style lang="scss" scoped>
+.app_layout {
+    height: 100vh;
+    overflow: hidden;
+}
+</style>
