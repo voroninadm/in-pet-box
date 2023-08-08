@@ -35,13 +35,17 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('login'), {
-        onFinish: () => {
+        onError: () => {
+            isLoginModalOpen.value = true;
+        },
+        // onFinish: () => {
+        //     form.reset();
+        //     isLoginModalOpen.value = false;
+        // },
+        onSuccess: () => {
             form.reset();
             isLoginModalOpen.value = false;
         },
-        onSuccess: () => {
-            form.reset();
-        }
     });
 }
 
@@ -228,13 +232,14 @@ const getImgNumber = () => {
                             v-model="form.email"
                             required
                             autofocus
+                            @change="form.errors.email = ''"
                         />
 
-                        <InputError class="mt-2" :message="form.errors.email"/>
+                        <InputError :message="form.errors.email"/>
                     </div>
 
-                    <div>
-                        <InputLabel for="password" value="Password"/>
+                    <div class="mt-3">
+                        <InputLabel for="password" value="Пароль"/>
 
                         <TextInput
                             id="password"
@@ -242,6 +247,7 @@ const getImgNumber = () => {
                             class="mt-1 block w-full"
                             v-model="form.password"
                             required
+                            @change="form.errors.password = ''"
                         />
 
                         <InputError class="mt-2" :message="form.errors.password"/>

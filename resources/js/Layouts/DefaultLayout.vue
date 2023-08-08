@@ -3,17 +3,17 @@ import HeaderNav from '@/components/modules/HeaderNav.vue';
 </script>
 
 <template>
-    <div class="app_layout">
-        <header-nav />
-        <main>
-            <slot />
-        </main>
+    <div class="page">
+        <header-nav/>
+        <slot/>
     </div>
 </template>
 
-<style lang="scss" scoped>
-.app_layout {
+<style>
+.page {
+    display: flex;
+    flex-direction: column;
     height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 </style>

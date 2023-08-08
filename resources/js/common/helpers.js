@@ -14,7 +14,6 @@ export const isMobileOrSmallScreen =
   ) ||
   window.screen.width <= minScreenWidth ||
   window.screen.height <= minScreenHeight;
-
 // data functions
 export const currentDate = moment();
 

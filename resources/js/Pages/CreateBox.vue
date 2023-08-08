@@ -1,10 +1,17 @@
 <script setup>
 import ProductCard from "@/components/modules/ProductCard.vue";
+
+const props = defineProps({
+    freeCells: {
+        type: Array || null,
+        required: true,
+    },
+});
 </script>
 
 
 <template>
-    <product-card class="mx-auto mt-10">
+    <product-card class="mx-auto mt-10" :free-cells="freeCells">
         <template #buttons>
             <button
                 type="submit"

@@ -1,6 +1,7 @@
 <script setup>
 import InputLabel from '@/components/InputLabel.vue';
 import TextInput from '@/components/TextInput.vue';
+import InputError from '@/components/InputError.vue';
 import {useForm} from "@inertiajs/vue3";
 
 import {totalDaysHolding} from "@/common/constants";
@@ -12,20 +13,24 @@ import {
 } from "@/common/helpers";
 
 const props = defineProps({
-    box: {
-        type: Object,
-        default: null,
+    freeCells: {
+        type: Array || null,
+        required: true,
     },
 });
 
+const freeCell = props.freeCells.shift()
+
 const form = useForm({
+    cell: freeCell,
     customer: "",
+    product: "",
     invoice: "",
     date_add: currentDate,
 });
 
 const submit = () => {
-    form.post(route('main'), {
+    form.post(route('box.store'), {
         onFinish: () => {
             form.reset();
         },
@@ -58,6 +63,8 @@ const submit = () => {
                             v-model="form.invoice"
                             required
                         />
+
+                        <InputError class="mt-2" :message="form.errors.invoice"/>
                     </div>
                     <div>
                         <input-label for="customer">Заказчик</input-label>
@@ -69,6 +76,20 @@ const submit = () => {
                             v-model="form.customer"
                             required
                         />
+                        <InputError class="mt-2" :message="form.errors.customer"/>
+                    </div>
+
+                    <div>
+                        <input-label for="product">Заказ</input-label>
+
+                        <TextInput
+                            id="product"
+                            type="text"
+                            class="mt-1 block w-full"
+                            v-model="form.product"
+                            required
+                        />
+                        <InputError class="mt-2" :message="form.errors.product"/>
                     </div>
 
                     <label class="flex justify-between text-sm md:text-base font-medium text-sm text-gray-700">

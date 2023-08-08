@@ -33,7 +33,7 @@ defineEmits(["clickToBox"]);
   width: 100vw;
   height: 100vh;
   position: relative;
-  background-image: url("@assets/img/shelves.webp");
+  background: url("@assets/img/shelves.webp") 50% 50% no-repeat;
   background-size: cover;
 }
 

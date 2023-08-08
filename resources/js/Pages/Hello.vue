@@ -1,6 +1,5 @@
 <script setup>
-import {Head, Link} from '@inertiajs/vue3';
-import { ref, shallowRef } from "vue";
+import { shallowRef } from "vue";
 import { isMobileOrSmallScreen } from "@/common/helpers";
 
 import HomeWithImage from "@/components/modules/HomeWithImage.vue";
@@ -12,6 +11,13 @@ const homePage = isMobileOrSmallScreen
 
 const setImageView = () => (homePage.value = HomeWithImage);
 const setTableView = () => (homePage.value = HomeWithTable);
+
+defineProps({
+    boxes: {
+        type: Array,
+        required: true,
+    },
+});
 </script>
 
 <template>
@@ -20,7 +26,7 @@ const setTableView = () => (homePage.value = HomeWithTable);
         class="toggle"
     >
         <button
-            class="toggler__button"
+            class="toggle__button"
             :class="{ active: homePage === HomeWithImage }"
             @click="setImageView"
         >
@@ -40,7 +46,7 @@ const setTableView = () => (homePage.value = HomeWithTable);
             </svg>
         </button>
         <button
-            class="toggler__button"
+            class="toggle__button"
             :class="{ active: homePage === HomeWithTable }"
             @click="setTableView"
         >
@@ -64,23 +70,13 @@ const setTableView = () => (homePage.value = HomeWithTable);
         name="view"
         enter-active-class="animate__animated animate__fadeInRight"
     >
-        <component :is="homePage">
+        <component :is="homePage" :boxes="boxes">
             <slot/>
         </component>
     </transition>
 </template>
 
 <style scoped>
-.bg-dots-darker {
-    /*background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,0,0.09)'/%3E%3C/svg%3E");*/
-}
-
-@media (prefers-color-scheme: dark) {
-    .dark\:bg-dots-lighter {
-        background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E");
-    }
-}
-
 .toggle {
     position: absolute;
     top: 60px;
@@ -92,7 +88,7 @@ const setTableView = () => (homePage.value = HomeWithTable);
     z-index: 10;
 }
 
-.toggler__button {
+.toggle__button {
     padding: 2px;
     border: 1px solid gray;
 }
