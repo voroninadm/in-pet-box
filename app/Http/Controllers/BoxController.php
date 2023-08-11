@@ -27,7 +27,7 @@ class BoxController extends Controller
     public function create(): \Inertia\Response
     {
         $notEmptyCells = DB::table('boxes')->pluck('cell')->toArray();
-        $allCells = range(1, Box::TOTAL_CELLS);
+        $allCells = range(1, Box::TOTAL_CELLS+1);
         $freeCells = array_values(array_filter($allCells, function ($cell) use ($notEmptyCells) {
             return !in_array($cell, $notEmptyCells);
         }));

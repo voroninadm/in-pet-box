@@ -5,6 +5,7 @@ import InputError from '@/components/InputError.vue';
 import {router, useForm} from "@inertiajs/vue3";
 import SaveButton from "@/components/buttons/SaveButton.vue";
 import DeleteButton from "@/components/buttons/DeleteButton.vue";
+import Modal from "@/components/Modal.vue";
 
 
 import {totalDaysHolding} from "@/common/constants";
@@ -15,6 +16,8 @@ import {
     isHoldingDateExpired,
 } from "@/common/helpers";
 
+import {ref} from "vue";
+
 const props = defineProps({
     box: {
         type: Object,
@@ -24,15 +27,20 @@ const props = defineProps({
 
 const form = useForm({
     cell: props.box['cell'],
-    customer:  props.box['customer'],
-    product:  props.box['product'],
-    invoice:  props.box['invoice'],
+    customer: props.box['customer'],
+    product: props.box['product'],
+    invoice: props.box['invoice'],
     date_add: props.box['created_at'],
 });
 
-const destroy = (id) => {
-    if(!confirm("Вы точно решили удалить со склада этот продукт?")) return;
-        router.delete(`/box/destroy/${id}`)
+let isModalOpen = ref(false);
+
+const openModal = () => {
+    isModalOpen.value = true;
+}
+
+const closeModal = () => {
+    isModalOpen.value = false;
 }
 </script>
 
@@ -45,7 +53,7 @@ const destroy = (id) => {
             class="mx-auto product w-3/4 md:w-2/4 lg:w-1/3 xl:w-1/4 border drop-shadow-xl p-3 bg-slate-50 font-sans"
         >
             <div class="product__image"></div>
-            <h1 class="text-center text-lg text-gray-700">Карточка товара</h1>
+            <h1 class="text-center text-lg text-gray-700">Изменение продукта в ячейке № {{ form.cell }}</h1>
             <form class="flex flex-col" @submit.prevent="$event => form.patch(`/box/update/${props.box.id}`)">
                 <div class="flex flex-col my-3 gap-2">
                     <div>
@@ -89,7 +97,7 @@ const destroy = (id) => {
 
                     <label class="flex justify-between text-sm md:text-base font-medium text-sm text-gray-700">
                         Начало хранения
-                        <span>{{  normalizeData(form.date_add) }}</span>
+                        <span>{{ normalizeData(form.date_add) }}</span>
                     </label>
                     <label class="flex justify-between text-sm md:text-base font-medium text-sm text-gray-700">
                         Окончание хранения
@@ -107,12 +115,19 @@ const destroy = (id) => {
                     >
                 </div>
                 <div class="flex space-y-1">
-                <save-button />
-                <delete-button @click="destroy(props.box['id'])" />
+                    <save-button/>
+                    <delete-button @click="openModal()"/>
                 </div>
             </form>
         </section>
     </transition>
+
+    <Modal :show="isModalOpen" @close="closeModal">
+        <div class="p-6 flex items-center m-auto">
+            <p class="px-5 text-center">Я подтверждаю удаление выбранного продукта!</p>
+            <delete-button @click="router.delete(`/box/destroy/${box.id}`)"/>
+        </div>
+    </Modal>
 </template>
 
 <style scoped>

@@ -2,7 +2,7 @@
   <button
     type="button"
     title="Удалить"
-    class="border rounded-lg m-auto hover:bg-red-200 transition duration-200"
+    class="border rounded-lg m-auto hover:bg-red-200 focus:bg-red-200 transition duration-200"
   >
     <svg
       class="w-16 h-16"

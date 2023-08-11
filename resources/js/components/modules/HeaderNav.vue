@@ -18,12 +18,12 @@ const showingNavigationDropdown = ref(false);
                 <div class="flex">
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center">
-                        <Link :href="route('main')">
+                        <Link :href="route('main')" class="transition duration-300 hover:scale-110">
                             <ApplicationLogo
                                 class="block h-9 w-auto fill-current text-gray-800"
                             />
                         </Link>
-                        <Link :href="route('box.create')">
+                        <Link :href="route('box.create')" class="transition duration-300 hover:scale-110">
                             <svg
                                 class="adding_icon"
                                 xmlns="http://www.w3.org/2000/svg"
