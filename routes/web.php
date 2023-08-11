@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/box/create', [BoxController::class, 'create'])->name('box.create');
     Route::post('/box/store', [BoxController::class, 'store'])->name('box.store');
     Route::get('/box/edit/{box}', [BoxController::class, 'edit'])->name('box.edit');
+    Route::patch('/box/update/{box}', [BoxController::class, 'update'])->name('box.update');
     Route::delete('/box/destroy/{box}', [BoxController::class, 'destroy'])->name('box.destroy');
 });
 

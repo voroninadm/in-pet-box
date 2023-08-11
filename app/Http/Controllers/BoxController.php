@@ -46,14 +46,6 @@ class BoxController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Box $box)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Box $box)
@@ -72,9 +64,10 @@ class BoxController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BoxStoreRequest $request, Box $box)
     {
-        //
+        $box->update($request->validated());
+        return to_route('main');
     }
 
     /**

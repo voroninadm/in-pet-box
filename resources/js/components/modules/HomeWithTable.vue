@@ -30,8 +30,8 @@ const editCard = (id) => {
         :key="box.id"
         class="border hover:bg-slate-200"
         :class="{
-          'animate-pulse': isHoldingDateExpired(created_at),
-          'text-rose-600': isHoldingDateExpired(created_at),
+          'animate-pulse': isHoldingDateExpired(box.created_at),
+          'text-rose-600': isHoldingDateExpired(box.created_at),
         }"
         @click="editCard(box['id'])"
       >

@@ -27,19 +27,8 @@ const form = useForm({
     customer:  props.box['customer'],
     product:  props.box['product'],
     invoice:  props.box['invoice'],
-    date_add: props.box['date_add'],
+    date_add: props.box['created_at'],
 });
-
-const submit = () => {
-    form.post(route('box.update'), {
-        onFinish: () => {
-            form.reset();
-        },
-        onSuccess: () => {
-            form.reset();
-        }
-    });
-}
 
 const destroy = (id) => {
     if(!confirm("Вы точно решили удалить со склада этот продукт?")) return;
@@ -57,7 +46,7 @@ const destroy = (id) => {
         >
             <div class="product__image"></div>
             <h1 class="text-center text-lg text-gray-700">Карточка товара</h1>
-            <form class="flex flex-col" @submit.prevent="submit">
+            <form class="flex flex-col" @submit.prevent="$event => form.patch(`/box/update/${props.box.id}`)">
                 <div class="flex flex-col my-3 gap-2">
                     <div>
                         <input-label for="invoice">Накладная</input-label>
