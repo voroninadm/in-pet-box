@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/main', [BoxController::class, 'index'])->name('main');
     Route::get('/box/create', [BoxController::class, 'create'])->name('box.create');
     Route::post('/box/store', [BoxController::class, 'store'])->name('box.store');
+    Route::get('/box/edit/{box}', [BoxController::class, 'edit'])->name('box.edit');
+    Route::delete('/box/destroy/{box}', [BoxController::class, 'destroy'])->name('box.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -16,7 +16,7 @@ class BoxController extends Controller
     public function index(): \Inertia\Response
     {
         $boxes = Box::query()->orderBy('cell')->get();
-        return Inertia::render('MainPage',[
+        return Inertia::render('MainPage', [
             'boxes' => $boxes
         ]);
     }
@@ -28,7 +28,7 @@ class BoxController extends Controller
     {
         $notEmptyCells = DB::table('boxes')->pluck('cell')->toArray();
         $allCells = range(1, Box::TOTAL_CELLS);
-        $freeCells = array_values(array_filter($allCells, function($cell) use ($notEmptyCells) {
+        $freeCells = array_values(array_filter($allCells, function ($cell) use ($notEmptyCells) {
             return !in_array($cell, $notEmptyCells);
         }));
         return Inertia::render('CreateBox', [
@@ -42,12 +42,13 @@ class BoxController extends Controller
     public function store(BoxStoreRequest $request)
     {
         Box::create($request->validated());
+        return to_route('main');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Box $box)
     {
         //
     }
@@ -55,9 +56,17 @@ class BoxController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Box $box)
     {
-        //
+        $notEmptyCells = DB::table('boxes')->pluck('cell')->toArray();
+        $allCells = range(1, Box::TOTAL_CELLS);
+        $freeCells = array_values(array_filter($allCells, function ($cell) use ($notEmptyCells) {
+            return !in_array($cell, $notEmptyCells);
+        }));
+
+        return Inertia::render('EditBox', [
+            'box' => $box,
+        ]);
     }
 
     /**
@@ -71,8 +80,9 @@ class BoxController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Box $box)
     {
-        //
+        $box->delete();
+        return to_route('main');
     }
 }

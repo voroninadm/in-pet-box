@@ -17,16 +17,20 @@ const props = defineProps({
         type: Array || null,
         required: true,
     },
+    box: {
+        type: Object,
+        required: false,
+    }
 });
 
 const freeCell = props.freeCells.shift()
 
 const form = useForm({
     cell: freeCell,
-    customer: "",
-    product: "",
-    invoice: "",
-    date_add: currentDate,
+    customer: props.box['customer'] ?? "",
+    product: props.box['product'] ?? "",
+    invoice: props.box['invoice'] ?? "",
+    date_add: props.box['created_at']?? currentDate,
 });
 
 const submit = () => {
@@ -94,7 +98,7 @@ const submit = () => {
 
                     <label class="flex justify-between text-sm md:text-base font-medium text-sm text-gray-700">
                         Начало хранения
-                        <span>{{ normalizeData(form.date_add) }}</span>
+                        <span>{{  normalizeData(form.date_add) }}</span>
                     </label>
                     <label class="flex justify-between text-sm md:text-base font-medium text-sm text-gray-700">
                         Окончание хранения

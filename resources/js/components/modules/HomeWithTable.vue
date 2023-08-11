@@ -1,5 +1,6 @@
 <script setup>
 import { normalizeData, isHoldingDateExpired } from "@/common/helpers";
+import {router} from "@inertiajs/vue3";
 
 defineProps({
     boxes: {
@@ -8,7 +9,9 @@ defineProps({
     },
 });
 
-defineEmits(["clickToBox"]);
+const editCard = (id) => {
+    router.visit(`/box/edit/${id}`);
+}
 </script>
 
 <template>
@@ -30,7 +33,7 @@ defineEmits(["clickToBox"]);
           'animate-pulse': isHoldingDateExpired(created_at),
           'text-rose-600': isHoldingDateExpired(created_at),
         }"
-        @click="$emit('clickToBox', box.id)"
+        @click="editCard(box['id'])"
       >
         <td class="text-center border noselect">{{ box.cell }}</td>
         <td class="text-center border noselect">{{ box.invoice }}</td>

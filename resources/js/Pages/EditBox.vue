@@ -2,8 +2,9 @@
 import InputLabel from '@/components/InputLabel.vue';
 import TextInput from '@/components/TextInput.vue';
 import InputError from '@/components/InputError.vue';
-import {useForm} from "@inertiajs/vue3";
+import {router, useForm} from "@inertiajs/vue3";
 import SaveButton from "@/components/buttons/SaveButton.vue";
+import DeleteButton from "@/components/buttons/DeleteButton.vue";
 
 
 import {totalDaysHolding} from "@/common/constants";
@@ -15,24 +16,22 @@ import {
 } from "@/common/helpers";
 
 const props = defineProps({
-    freeCells: {
-        type: Array || null,
+    box: {
+        type: Object,
         required: true,
     },
 });
 
-const freeCell = props.freeCells.shift()
-
 const form = useForm({
-    cell: freeCell,
-    customer:  "",
-    product:  "",
-    invoice:  "",
-    date_add: currentDate,
+    cell: props.box['cell'],
+    customer:  props.box['customer'],
+    product:  props.box['product'],
+    invoice:  props.box['invoice'],
+    date_add: props.box['date_add'],
 });
 
 const submit = () => {
-    form.post(route('box.store'), {
+    form.post(route('box.update'), {
         onFinish: () => {
             form.reset();
         },
@@ -40,6 +39,11 @@ const submit = () => {
             form.reset();
         }
     });
+}
+
+const destroy = (id) => {
+    if(!confirm("Вы точно решили удалить со склада этот продукт?")) return;
+        router.delete(`/box/destroy/${id}`)
 }
 </script>
 
@@ -113,7 +117,10 @@ const submit = () => {
                         {{ totalDaysHolding }} дней!</small
                     >
                 </div>
+                <div class="flex space-y-1">
                 <save-button />
+                <delete-button @click="destroy(props.box['id'])" />
+                </div>
             </form>
         </section>
     </transition>
