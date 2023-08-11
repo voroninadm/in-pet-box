@@ -16,8 +16,10 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get(('/'), function () {
+    return Inertia::render('WelcomePage');
+})->name('login');
 
-Route::get('/', [BoxController::class, 'index'])->name('main');
 
 // Auth routes
 Route::middleware('auth')->group(function () {
@@ -28,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
 // Box routes
 Route::middleware('auth')->group(function () {
+    Route::get('/main', [BoxController::class, 'index'])->name('main');
     Route::get('/box/create', [BoxController::class, 'create'])->name('box.create');
     Route::post('/box/store', [BoxController::class, 'store'])->name('box.store');
 });

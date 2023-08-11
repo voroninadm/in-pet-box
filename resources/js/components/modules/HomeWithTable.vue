@@ -27,8 +27,8 @@ defineEmits(["clickToBox"]);
         :key="box.id"
         class="border hover:bg-slate-200"
         :class="{
-          'animate-pulse': isHoldingDateExpired(box.date_add),
-          'text-rose-600': isHoldingDateExpired(box.date_add),
+          'animate-pulse': isHoldingDateExpired(created_at),
+          'text-rose-600': isHoldingDateExpired(created_at),
         }"
         @click="$emit('clickToBox', box.id)"
       >
@@ -36,7 +36,7 @@ defineEmits(["clickToBox"]);
         <td class="text-center border noselect">{{ box.invoice }}</td>
         <td class="text-center border noselect">{{ box.customer }}</td>
         <td class="text-center border noselect">
-          {{ normalizeData(box.date_add) }}
+          {{ normalizeData(box.created_at) }}
         </td>
       </tr>
     </tbody>

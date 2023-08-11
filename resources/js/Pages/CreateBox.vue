@@ -11,7 +11,7 @@ const props = defineProps({
 
 
 <template>
-    <product-card class="mx-auto mt-10" :free-cells="freeCells">
+    <product-card class="mx-auto mt-5" :free-cells="freeCells">
         <template #buttons>
             <button
                 type="submit"

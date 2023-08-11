@@ -16,7 +16,7 @@ class BoxController extends Controller
     public function index(): \Inertia\Response
     {
         $boxes = Box::query()->orderBy('cell')->get();
-        return Inertia::render('Hello',[
+        return Inertia::render('MainPage',[
             'boxes' => $boxes
         ]);
     }

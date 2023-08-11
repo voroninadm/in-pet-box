@@ -1,59 +1,13 @@
 <script setup>
-import {nextTick, ref} from 'vue';
+import {ref} from 'vue';
 import ApplicationLogo from '@/components/ApplicationLogo.vue';
 import Dropdown from '@/components/Dropdown.vue';
 import DropdownLink from '@/components/DropdownLink.vue';
 import ResponsiveNavLink from '@/components/ResponsiveNavLink.vue';
-import Modal from '@/components/Modal.vue';
-import {Link, useForm} from '@inertiajs/vue3';
-import {minBoxImage, maxBoxImage} from "@/common/constants.js";
-import Checkbox from '@/components/Checkbox.vue';
-import InputError from '@/components/InputError.vue';
-import InputLabel from '@/components/InputLabel.vue';
-import PrimaryButton from '@/components/PrimaryButton.vue';
-import TextInput from '@/components/TextInput.vue';
+import {Link} from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
-const isLoginModalOpen = ref(false);
-const emailInput = ref(null);
 
-const tryToLogin = () => {
-    isLoginModalOpen.value = true;
-    nextTick(() => emailInput.value.focus());
-};
-
-const closeModal = () => {
-    isLoginModalOpen.value = false;
-    form.reset();
-};
-
-const form = useForm({
-    email: '',
-    password: '',
-    remember: false,
-});
-
-const submit = () => {
-    form.post(route('login'), {
-        onError: () => {
-            isLoginModalOpen.value = true;
-        },
-        // onFinish: () => {
-        //     form.reset();
-        //     isLoginModalOpen.value = false;
-        // },
-        onSuccess: () => {
-            form.reset();
-            isLoginModalOpen.value = false;
-        },
-    });
-}
-
-// get random number and add its class to modal image
-let modalImg = ref(null);
-const getImgNumber = () => {
-    return modalImg = Math.floor(Math.random() * (maxBoxImage - minBoxImage + 1)) + minBoxImage;
-};
 </script>
 
 <template>
@@ -69,7 +23,7 @@ const getImgNumber = () => {
                                 class="block h-9 w-auto fill-current text-gray-800"
                             />
                         </Link>
-                        <Link v-if="$page.props.auth.user" :href="route('box.create')">
+                        <Link :href="route('box.create')">
                             <svg
                                 class="adding_icon"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +45,7 @@ const getImgNumber = () => {
                                         rx="2"
                                         ry="2"
                                     />
-                                    <path d="M15.5 12h-7m3.5 3.5v-7" />
+                                    <path d="M15.5 12h-7m3.5 3.5v-7"/>
                                 </g>
                             </svg>
                         </Link>
@@ -108,7 +62,7 @@ const getImgNumber = () => {
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                     <!-- Settings Dropdown -->
                     <div class="ml-3 relative">
-                        <Dropdown v-if="$page.props.auth.user" align="right" width="48">
+                        <Dropdown align="right" width="48">
                             <template #trigger>
                                         <span class="inline-flex rounded-md">
                                             <button
@@ -144,7 +98,7 @@ const getImgNumber = () => {
                 </div>
 
                 <!-- Hamburger -->
-                <div v-if="$page.props.auth.user" class="-mr-2 flex items-center sm:hidden">
+                <div class="-mr-2 flex items-center sm:hidden">
                     <button
                         @click="showingNavigationDropdown = !showingNavigationDropdown"
                         class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
@@ -173,13 +127,6 @@ const getImgNumber = () => {
                         </svg>
                     </button>
                 </div>
-                <button v-else type="button" @click="tryToLogin(); getImgNumber();">
-                    <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-                        <path
-                            d="M16.64 20.67a1 1 0 1 0 1.42 1.41l5.9-6.06-5.9-6.06a1 1 0 0 0-1.42 1.41L20.26 15H.99a1 1 0 0 0 0 2h19.33zM30 0H12a2 2 0 0 0-2 2v9h2.02V3.22c0-.67.54-1.21 1.2-1.21h15.53c.67 0 1.21.54 1.21 1.21l.03 25.57a1.2 1.2 0 0 1-1.2 1.21H13.22a1.2 1.2 0 0 1-1.21-1.2v-7.83H10V30c0 1.1.9 2 2 2h18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
-                        />
-                    </svg>
-                </button>
             </div>
         </div>
 
@@ -195,7 +142,7 @@ const getImgNumber = () => {
             <!--                    </div>-->
 
             <!-- Responsive Settings Options -->
-            <div v-if="$page.props.auth.user" class="pt-2 pb-1 border border-gray-200">
+            <div class="pt-2 pb-1 border border-gray-200">
                 <div class="px-4 text-center">
                     <div class="font-medium text-base text-gray-800">
                         {{ $page.props.auth.user.name }}
@@ -212,65 +159,6 @@ const getImgNumber = () => {
             </div>
         </div>
     </nav>
-
-    <Modal :show="isLoginModalOpen" @close="closeModal">
-        <div class="m-4  bg-white rounded-lg p-2">
-            <form class="flex flex-col" @submit.prevent="submit">
-                <div >
-                    <div
-                        class="login_img"
-                        :class="`login_img__${modalImg}`"
-                    />
-                    <div>
-                        <InputLabel for="email" value="Email"/>
-
-                        <TextInput
-                            id="email"
-                            type="email"
-                            class="mt-1 block w-full"
-                            ref="emailInput"
-                            v-model="form.email"
-                            required
-                            autofocus
-                            @change="form.errors.email = ''"
-                        />
-
-                        <InputError :message="form.errors.email"/>
-                    </div>
-
-                    <div class="mt-3">
-                        <InputLabel for="password" value="Пароль"/>
-
-                        <TextInput
-                            id="password"
-                            type="password"
-                            class="mt-1 block w-full"
-                            v-model="form.password"
-                            required
-                            @change="form.errors.password = ''"
-                        />
-
-                        <InputError class="mt-2" :message="form.errors.password"/>
-                    </div>
-
-                    <div class="flex justify-center mt-2">
-                        <label class="flex items-center">
-                            <Checkbox name="remember" v-model:checked="form.remember"/>
-                            <span class="ml-2 text-sm text-gray-600">Запомнить меня</span>
-                        </label>
-                    </div>
-
-                    <div class="flex justify-center mt-2">
-                        <PrimaryButton class="justify-center w-1/4"
-                                       :class="{ 'opacity-25': form.processing }"
-                                       :disabled="form.processing">
-                            Войти
-                        </PrimaryButton>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </Modal>
 </template>
 
 <style lang="scss" scoped>
@@ -285,33 +173,7 @@ const getImgNumber = () => {
     }
 }
 
-.login_img {
-    width: 250px;
-    height: 200px;
-    margin: auto;
-
-    &__1 {
-        background: url("@assets/img/box-1.webp") 50% 50% no-repeat;
-        background-size: contain;
-    }
-
-    &__2 {
-        background: url("@assets/img/box-2.webp") 50% 50% no-repeat;
-        background-size: contain;
-    }
-
-    &__3 {
-        background: url("@assets/img/box-3.webp") 50% 50% no-repeat;
-        background-size: contain;
-    }
-
-    &__4 {
-        background: url("@assets/img/box-4.webp") 50% 50% no-repeat;
-        background-size: contain;
-    }
-}
-
-.adding_icon{
+.adding_icon {
     width: 25px;
     height: 25px;
     margin: 0 20px;
