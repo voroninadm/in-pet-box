@@ -2,8 +2,10 @@
 import InputLabel from '@/components/InputLabel.vue';
 import TextInput from '@/components/TextInput.vue';
 import InputError from '@/components/InputError.vue';
-import {useForm} from "@inertiajs/vue3";
+import {useForm, router} from "@inertiajs/vue3";
 import SaveButton from "@/components/buttons/SaveButton.vue";
+import PrimaryButton from "@/components/PrimaryButton.vue";
+import Checkbox from '@/components/Checkbox.vue';
 
 
 import {totalDaysHolding} from "@/common/constants";
@@ -15,16 +17,17 @@ import {
 } from "@/common/helpers";
 
 const props = defineProps({
-    freeCells: {
-        type: Array || null,
+    cellToNewBox: {
+        type: Number || null,
         required: true,
     },
+    lastAddedBox: {
+        type: Object
+    }
 });
 
-const freeCell = props.freeCells.shift()
-
 const form = useForm({
-    cell: freeCell,
+    cell: props.cellToNewBox,
     customer:  "",
     product:  "",
     invoice:  "",
@@ -41,6 +44,12 @@ const submit = () => {
         }
     });
 }
+
+const click = () => {
+    form.customer = props.lastAddedBox.customer;
+    form.product = props.lastAddedBox.product;
+    form.invoice = props.lastAddedBox.invoice;
+}
 </script>
 
 <template>
@@ -48,11 +57,14 @@ const submit = () => {
         appear
         enter-active-class="animate__animated animate__slideInDown"
     >
-        <section v-if="freeCells.length !== 0"
+        <section v-if="cellToNewBox"
             class="mx-auto product w-3/4 md:w-2/4 lg:w-1/3 xl:w-1/4 border drop-shadow-xl p-3 bg-slate-50 font-sans"
         >
             <div class="product__image"></div>
             <h1 class="text-center text-lg text-gray-700">Добавляем продукт в ячейку № {{ form.cell }}</h1>
+            <div class="flex justify-center underline">
+            <button class="text-xs text-center text-gray-500" @click="click()">(или продолжить последний добавленный)</button>
+            </div>
             <form class="flex flex-col" @submit.prevent="submit">
                 <div class="flex flex-col my-3 gap-2">
                     <div>
@@ -116,11 +128,14 @@ const submit = () => {
                 <save-button />
             </form>
         </section>
-        <section v-else class="mx-auto product w-3/4 md:w-2/4 lg:w-1/3 xl:w-1/4 border drop-shadow-xl p-3 bg-slate-50 font-sans"
+        <section v-else class="flex flex-col mx-auto product w-3/4 md:w-2/4 lg:w-1/3 xl:w-1/4 border drop-shadow-xl p-3 bg-slate-50 font-sans"
         >
-            <div class="product__image"></div>
+            <div class="no_place_image"></div>
            <p class="text-center text-lg">Извините, все ячейки хранения заняты!</p>
            <p class="text-center text-sm mt-4">Проверьте сроки хранения товаров, может место и освободится...</p>
+            <div class="flex justify-center mt-5">
+            <PrimaryButton @click="router.visit('/main')">Ок, взглянем на полки</PrimaryButton>
+            </div>
         </section>
     </transition>
 </template>
@@ -130,6 +145,14 @@ const submit = () => {
     width: 200px;
     height: 200px;
     background: url("@assets/img/box-adding.webp") 50% 50% no-repeat;
+    background-size: contain;
+    margin: auto;
+}
+
+.no_place_image {
+    width: 200px;
+    height: 200px;
+    background: url("@assets/img/box-error.webp") 50% 50% no-repeat;
     background-size: contain;
     margin: auto;
 }

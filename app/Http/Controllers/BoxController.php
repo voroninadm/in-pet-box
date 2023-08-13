@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BoxStoreRequest;
 use App\Models\Box;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -27,12 +26,17 @@ class BoxController extends Controller
     public function create(): \Inertia\Response
     {
         $notEmptyCells = DB::table('boxes')->pluck('cell')->toArray();
-        $allCells = range(1, Box::TOTAL_CELLS+1);
+        $allCells = range(1, Box::TOTAL_CELLS);
         $freeCells = array_values(array_filter($allCells, function ($cell) use ($notEmptyCells) {
             return !in_array($cell, $notEmptyCells);
         }));
+        $cellToNewBox = $freeCells[0] ?? null;
+
+        $lastAddedBox = DB::table('boxes')->latest('id')->first();
+
         return Inertia::render('CreateBox', [
-            'freeCells' => $freeCells
+            'cellToNewBox' => $cellToNewBox,
+            'lastAddedBox' => $lastAddedBox
         ]);
     }
 
@@ -50,12 +54,6 @@ class BoxController extends Controller
      */
     public function edit(Box $box)
     {
-        $notEmptyCells = DB::table('boxes')->pluck('cell')->toArray();
-        $allCells = range(1, Box::TOTAL_CELLS);
-        $freeCells = array_values(array_filter($allCells, function ($cell) use ($notEmptyCells) {
-            return !in_array($cell, $notEmptyCells);
-        }));
-
         return Inertia::render('EditBox', [
             'box' => $box,
         ]);
