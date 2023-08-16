@@ -59,11 +59,11 @@ defineEmits(["clickToBox"]);
 }
 
 .box-ok {
-  background-image: url("@/assets/img/box-ok.webp");
+  background-image: url("@assets/img/box-ok.webp");
 }
 
 .box-forgotten {
-  background-image: url("@/assets/img/box-forgotten.webp");
+  background-image: url("@assets/img/box-forgotten.webp");
 }
 
 /* First shelf */

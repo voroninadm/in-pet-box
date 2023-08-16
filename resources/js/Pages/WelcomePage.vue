@@ -40,7 +40,7 @@ export default {
 </script>
 
 <template>
-    <div class="m-4 bg-white rounded-lg p-2">
+    <div class="m-4 bg-white rounded-lg p-2 md:w-4/12">
         <form class="flex flex-col" @submit.prevent="submit">
             <div >
                 <div

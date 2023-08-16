@@ -5,7 +5,7 @@ import { isMobileOrSmallScreen } from "@/common/helpers";
 import HomeWithImage from "@/components/modules/HomeWithImage.vue";
 import HomeWithTable from "@/components/modules/HomeWithTable.vue";
 
-const homePage = isMobileOrSmallScreen
+const homePage = isMobileOrSmallScreen.value
     ? shallowRef(HomeWithTable)
     : shallowRef(HomeWithImage);
 
@@ -22,7 +22,7 @@ defineProps({
 
 <template>
     <div
-        v-if="$page.props.auth.user"
+        v-if="!isMobileOrSmallScreen"
         class="toggle"
     >
         <button

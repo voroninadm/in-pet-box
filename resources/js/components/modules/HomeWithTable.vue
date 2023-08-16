@@ -18,10 +18,10 @@ const editCard = (id) => {
   <table class="mt-5 mx-auto">
     <thead>
       <tr>
-        <th class="w-1/12 p-2">Ячейка</th>
-        <th class="w-1/12 p-2">Накладная</th>
-        <th class="w-4/12 p-2">Заказчик</th>
-        <th class="w-2/12 p-2">Начало хранения</th>
+        <th class="md:w-1/12 p-2">Ячейка</th>
+        <th class="md:w-3/12 p-2">Накладная</th>
+        <th class="md:w-4/12 p-2">Заказчик</th>
+        <th class="md:w-4/12 p-2">Начало хранения</th>
       </tr>
     </thead>
     <tbody>
@@ -29,16 +29,21 @@ const editCard = (id) => {
         v-for="box in boxes"
         :key="box.id"
         class="border hover:bg-slate-200"
-        :class="{
-          'animate-pulse': isHoldingDateExpired(box.created_at),
-          'text-rose-600': isHoldingDateExpired(box.created_at),
-        }"
         @click="editCard(box['id'])"
       >
-        <td class="text-center border noselect">{{ box.cell }}</td>
+        <td class="text-center border noselect"
+            :class="{
+          'animate-pulse': isHoldingDateExpired(box.created_at),
+          'text-rose-600': isHoldingDateExpired(box.created_at),
+        }">{{ box.cell }}</td>
+
         <td class="text-center border noselect">{{ box.invoice }}</td>
         <td class="text-center border noselect">{{ box.customer }}</td>
-        <td class="text-center border noselect">
+        <td class="text-center border noselect"
+            :class="{
+          'animate-pulse': isHoldingDateExpired(box.created_at),
+          'text-rose-600': isHoldingDateExpired(box.created_at),
+        }">
           {{ normalizeData(box.created_at) }}
         </td>
       </tr>
