@@ -79,8 +79,8 @@ defineProps({
 <style scoped>
 .toggle {
     position: absolute;
-    top: 60px;
-    right: 40px;
+    top: 5px;
+    right: 50%;
 
     border: 1px solid lightgray;
     padding: 3px 5px;

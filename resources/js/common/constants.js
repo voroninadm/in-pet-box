@@ -1,6 +1,6 @@
 // Минимальные характеристики для показа картинки на главной
-export const minScreenWidth = 875;
-export const minScreenHeight = 490;
+export const minScreenWidth = 1280;
+export const minScreenHeight = 560;
 
 // количество дней хранения на складе
 export const totalDaysHolding = 7;

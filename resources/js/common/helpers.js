@@ -15,6 +15,7 @@ export const isMobileOrSmallScreen = ref(
   ) ||
   window.screen.width <= minScreenWidth ||
   window.screen.height <= minScreenHeight);
+
 // data functions
 export const currentDate = moment();
 
@@ -25,10 +26,15 @@ export const normalizeData = (date) => {
 export const isHoldingDateExpired = (date) => {
   let now = moment();
   let startHoldingDate = moment(date);
-  return now.diff(startHoldingDate, "days") > totalDaysHolding ? true : false;
+  return now.diff(startHoldingDate, "days") > totalDaysHolding;
 };
 
 export const deadlineDate = (date = new Date()) => {
   let startHoldingDate = moment(date);
   return startHoldingDate.add(totalDaysHolding, "days").format("D MMM YYYY");
+};
+
+export const daysFromCreate = (date) => {
+    let startHoldingDate = moment(date);
+    return moment(date).fromNow();
 };
