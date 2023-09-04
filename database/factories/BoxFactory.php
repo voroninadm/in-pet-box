@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Box;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class BoxFactory extends Factory
 {
+    protected $model = Box::class;
+
     /**
      * Define the model's default state.
      *
@@ -18,7 +21,6 @@ class BoxFactory extends Factory
     {
         return [
         'invoice' => $this->faker->numberBetween(10000,99999),
-        'cell' => $this->faker->unique()->numberBetween(1,24),
         'customer' => $this->faker->company(),
         'product' => $this->faker->sentence(),
         ];

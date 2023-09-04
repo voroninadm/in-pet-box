@@ -13,7 +13,7 @@ const setImageView = () => (homePage.value = HomeWithImage);
 const setTableView = () => (homePage.value = HomeWithTable);
 
 defineProps({
-    boxes: {
+    cells: {
         type: Array,
         required: true,
     },
@@ -70,7 +70,7 @@ defineProps({
         name="view"
         enter-active-class="animate__animated animate__fadeInRight"
     >
-        <component :is="homePage" :boxes="boxes">
+        <component :is="homePage" :cells="cells">
             <slot/>
         </component>
     </transition>

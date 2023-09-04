@@ -3,7 +3,7 @@ import { normalizeData, isHoldingDateExpired, daysFromCreate } from "@/common/he
 import {router} from "@inertiajs/vue3";
 
 defineProps({
-    boxes: {
+    cells: {
         type: Array,
         required: true,
     },
@@ -27,26 +27,26 @@ const editCard = (id) => {
     </thead>
     <tbody>
       <tr
-        v-for="box in boxes"
-        :key="box.id"
+        v-for="cell in cells"
+        :key="cell.cell"
         class="border hover:bg-slate-200"
-        @click="editCard(box['id'])"
+        @click="editCard(cell.cell)"
       >
         <td class="text-center border noselect"
             :class="{
-          'animate-pulse': isHoldingDateExpired(box.created_at),
-          'text-rose-600': isHoldingDateExpired(box.created_at),
-        }">{{ box.cell }}</td>
+          'animate-pulse': isHoldingDateExpired(cell.box.created_at),
+          'text-rose-600': isHoldingDateExpired(cell.box.created_at),
+        }">{{ cell.cell }}</td>
 
-        <td class="text-center border noselect">{{ box.invoice }}</td>
-        <td class="hidden md:table-cell text-center border noselect">{{ box.customer }}</td>
-        <td class="hidden xl:table-cell text-center border noselect">{{ box.product }}</td>
+        <td class="text-center border noselect">{{ cell.box.invoice }}</td>
+        <td class="hidden md:table-cell text-center border noselect">{{ cell.box.customer }}</td>
+        <td class="hidden xl:table-cell text-center border noselect">{{ cell.box.product }}</td>
           <td class="text-center border noselect"
               :class="{
-          'animate-pulse': isHoldingDateExpired(box.created_at),
-          'text-rose-600': isHoldingDateExpired(box.created_at),
+          'animate-pulse': isHoldingDateExpired(cell.box.created_at),
+          'text-rose-600': isHoldingDateExpired(cell.box.created_at),
         }">
-              {{ daysFromCreate(box.created_at)  }}
+              {{ daysFromCreate(cell.box.created_at)  }}
           </td>
       </tr>
     </tbody>

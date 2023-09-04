@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BoxStoreRequest;
+use App\Models\Cell;
 use App\Models\Box;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -14,9 +15,9 @@ class BoxController extends Controller
      */
     public function index(): \Inertia\Response
     {
-        $boxes = Box::query()->orderBy('cell')->get();
+        $cells = Cell::with('box')->orderBy('cell')->get();
         return Inertia::render('MainPage', [
-            'boxes' => $boxes
+            'cells' => $cells
         ]);
     }
 
@@ -25,8 +26,8 @@ class BoxController extends Controller
      */
     public function create(): \Inertia\Response
     {
-        $notEmptyCells = DB::table('boxes')->pluck('cell')->toArray();
-        $allCells = range(1, Box::TOTAL_CELLS);
+        $notEmptyCells = DB::table('boxes')->pluck('cell_id')->toArray();
+        $allCells = range(1, Cell::TOTAL_CELLS);
         $freeCells = array_values(array_filter($allCells, function ($cell) use ($notEmptyCells) {
             return !in_array($cell, $notEmptyCells);
         }));
@@ -54,8 +55,10 @@ class BoxController extends Controller
      */
     public function edit(Box $box)
     {
+        $cell = Box::find($box['id'])->cell;
         return Inertia::render('EditBox', [
             'box' => $box,
+            'cell' => $cell['cell']
         ]);
     }
 

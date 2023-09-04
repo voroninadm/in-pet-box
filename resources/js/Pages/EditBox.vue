@@ -23,10 +23,13 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    cell: {
+        type: Number,
+    }
 });
 
 const form = useForm({
-    cell: props.box['cell'],
+    cell: props.cell,
     customer: props.box['customer'],
     product: props.box['product'],
     invoice: props.box['invoice'],
