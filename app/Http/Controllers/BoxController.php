@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BoxStoreRequest;
 use App\Models\Cell;
 use App\Models\Box;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -15,7 +16,7 @@ class BoxController extends Controller
      */
     public function index(): \Inertia\Response
     {
-        $cells = Cell::with('box')->orderBy('cell')->get();
+        $cells = Cell::with('box')->orderBy('id')->get();
         return Inertia::render('MainPage', [
             'cells' => $cells
         ]);
@@ -24,19 +25,13 @@ class BoxController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): \Inertia\Response
+    public function create($id): \Inertia\Response
     {
-        $notEmptyCells = DB::table('boxes')->pluck('cell_id')->toArray();
-        $allCells = range(1, Cell::TOTAL_CELLS);
-        $freeCells = array_values(array_filter($allCells, function ($cell) use ($notEmptyCells) {
-            return !in_array($cell, $notEmptyCells);
-        }));
-        $cellToNewBox = $freeCells[0] ?? null;
-
+        $cellId = $id;
         $lastAddedBox = DB::table('boxes')->latest('id')->first();
 
         return Inertia::render('CreateBox', [
-            'cellToNewBox' => $cellToNewBox,
+            'cellId' => $cellId,
             'lastAddedBox' => $lastAddedBox
         ]);
     }
@@ -55,10 +50,8 @@ class BoxController extends Controller
      */
     public function edit(Box $box)
     {
-        $cell = Box::find($box['id'])->cell;
         return Inertia::render('EditBox', [
             'box' => $box,
-            'cell' => $cell['cell']
         ]);
     }
 

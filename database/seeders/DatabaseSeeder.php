@@ -7,6 +7,7 @@ use App\Models\Box;
 use App\Models\Cell;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,17 +16,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $cells = Cell::factory(10)->create();
-        $cells->each(function ($c) {
-            $c->box()->save(Box::factory()->make());
-        });
+        // seedind all cells
+        for ($i = 1; $i <= Cell::TOTAL_CELLS; $i++) {
+            DB::table('cells')->insert([
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
 
+//        $cells->each(function ($c) {
+//            $c->box()->save(Box::factory()->make());
+//        });
+
+        // creating admin
          User::factory()->create([
              'name' => 'admin',
              'email' => 'test@example.com',
              'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
          ]);
 
-         User::factory(10)->create();
+//         User::factory(10)->create();
     }
 }

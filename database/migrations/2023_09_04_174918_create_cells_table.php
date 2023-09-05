@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('cells', function (Blueprint $table) {
             $table->id();
-            $table->integer('cell');
             $table->timestamps();
         });
     }

@@ -5,7 +5,6 @@ import InputError from '@/components/InputError.vue';
 import {useForm, router} from "@inertiajs/vue3";
 import SaveButton from "@/components/buttons/SaveButton.vue";
 import PrimaryButton from "@/components/PrimaryButton.vue";
-import Checkbox from '@/components/Checkbox.vue';
 
 
 import {totalDaysHolding} from "@/common/constants";
@@ -17,17 +16,17 @@ import {
 } from "@/common/helpers";
 
 const props = defineProps({
-    cellToNewBox: {
-        type: Number || null,
-        required: true,
-    },
     lastAddedBox: {
         type: Object
+    },
+    cellId: {
+        type: Number,
+        required: true,
     }
 });
 
 const form = useForm({
-    cell: props.cellToNewBox,
+    cell_id: props.cellId,
     customer:  "",
     product:  "",
     invoice:  "",
@@ -57,11 +56,11 @@ const click = () => {
         appear
         enter-active-class="animate__animated animate__slideInDown"
     >
-        <section v-if="cellToNewBox"
+        <section v-if="cellId"
             class="mx-auto product w-3/4 md:w-2/4 lg:w-1/3 xl:w-1/4 border drop-shadow-xl p-3 bg-slate-50 font-sans"
         >
             <div class="product__image"></div>
-            <h1 class="text-center text-lg text-gray-700">Добавляем продукт в ячейку № {{ form.cell }}</h1>
+            <h1 class="text-center text-lg text-gray-700">Добавляем продукт в ячейку № {{ form.cell_id }}</h1>
             <div class="flex justify-center underline">
             <button class="text-xs text-center text-gray-500" @click="click()">(или продолжить последний добавленный)</button>
             </div>

@@ -30,7 +30,7 @@ defineProps({
 <template>
     <div class="shelves w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-5">
             <box-state v-for="cell in cells"
-                       :key="cell.cell" :cell="cell"
+                       :key="cell.id" :cell="cell"
             :class="`cell-${cell.box}`"/>
         </div>
 </template>

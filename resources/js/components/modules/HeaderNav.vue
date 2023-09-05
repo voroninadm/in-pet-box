@@ -23,32 +23,32 @@ const showingNavigationDropdown = ref(false);
                                 class="block h-9 w-auto fill-current text-gray-800"
                             />
                         </Link>
-                        <Link :href="route('box.create')" class="transition duration-300 hover:scale-110">
-                            <svg
-                                class="adding_icon"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                            >
-                                <g
-                                    fill="none"
-                                    stroke="#000"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                >
-                                    <rect
-                                        width="20"
-                                        height="20"
-                                        x="2"
-                                        y="2"
-                                        data-name="--Rectangle"
-                                        rx="2"
-                                        ry="2"
-                                    />
-                                    <path d="M15.5 12h-7m3.5 3.5v-7"/>
-                                </g>
-                            </svg>
-                        </Link>
+<!--                        <Link :href="route('box.create')" class="transition duration-300 hover:scale-110">-->
+<!--                            <svg-->
+<!--                                class="adding_icon"-->
+<!--                                xmlns="http://www.w3.org/2000/svg"-->
+<!--                                viewBox="0 0 24 24"-->
+<!--                            >-->
+<!--                                <g-->
+<!--                                    fill="none"-->
+<!--                                    stroke="#000"-->
+<!--                                    stroke-linecap="round"-->
+<!--                                    stroke-linejoin="round"-->
+<!--                                    stroke-width="2"-->
+<!--                                >-->
+<!--                                    <rect-->
+<!--                                        width="20"-->
+<!--                                        height="20"-->
+<!--                                        x="2"-->
+<!--                                        y="2"-->
+<!--                                        data-name="&#45;&#45;Rectangle"-->
+<!--                                        rx="2"-->
+<!--                                        ry="2"-->
+<!--                                    />-->
+<!--                                    <path d="M15.5 12h-7m3.5 3.5v-7"/>-->
+<!--                                </g>-->
+<!--                            </svg>-->
+<!--                        </Link>-->
                     </div>
 
                     <!-- Navigation Links -->

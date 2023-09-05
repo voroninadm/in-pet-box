@@ -22,7 +22,7 @@ class BoxStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cell' => ['required', 'numeric'],
+            'cell_id' => ['required', 'numeric'],
             'invoice' => ['required', 'string'],
             'customer' => ['required', 'string'],
             'product' => ['required', 'string'],

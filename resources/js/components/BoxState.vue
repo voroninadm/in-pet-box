@@ -12,20 +12,20 @@ defineProps({
 const editCard = (id) => {
     router.visit(`/box/edit/${id}`);
 }
-const createBox = () => {
-    router.visit(`/box/create`);
+const createBox = (id) => {
+    router.visit(`/box/create/${id}`);
 }
 </script>
 
 <template>
-    <div v-if="cell.box.id"
+    <div v-if="cell.box"
         class="box"
         :class="[isHoldingDateExpired(cell.box.created_at) ? 'box-forgotten' : 'box-ok']"
          @click="editCard(cell.box.id)"
     ></div>
     <div v-else
          class="box box-to-create"
-         @click="createBox"></div>
+         @click="createBox(cell.id)"></div>
 </template>
 
 

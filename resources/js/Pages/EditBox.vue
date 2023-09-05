@@ -23,13 +23,10 @@ const props = defineProps({
         type: Object,
         required: true,
     },
-    cell: {
-        type: Number,
-    }
 });
 
 const form = useForm({
-    cell: props.cell,
+    cell_id: props.box.cell_id,
     customer: props.box['customer'],
     product: props.box['product'],
     invoice: props.box['invoice'],
@@ -45,6 +42,17 @@ const openModal = () => {
 const closeModal = () => {
     isModalOpen.value = false;
 }
+
+// const submit = () => {
+//     form.post(route('box.store'), {
+//         onFinish: () => {
+//             form.reset();
+//         },
+//         onSuccess: () => {
+//             form.reset();
+//         }
+//     });
+// }
 </script>
 
 <template>
@@ -56,7 +64,7 @@ const closeModal = () => {
             class="mx-auto product w-3/4 md:w-2/4 lg:w-1/3 xl:w-1/4 border drop-shadow-xl p-3 bg-slate-50 font-sans"
         >
             <div class="product__image"></div>
-            <h1 class="text-center text-lg text-gray-700">Изменение продукта в ячейке № {{ form.cell }}</h1>
+            <h1 class="text-center text-lg text-gray-700">Изменение продукта в ячейке № {{ form.cell_id }}</h1>
             <form class="flex flex-col" @submit.prevent="$event => form.patch(`/box/update/${props.box.id}`)">
                 <div class="flex flex-col my-3 gap-2">
                     <div>

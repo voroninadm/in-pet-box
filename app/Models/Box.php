@@ -11,6 +11,7 @@ class Box extends Model
     use HasFactory;
 
     protected $fillable = [
+        'cell_id',
         'invoice',
         'customer',
         'product'
