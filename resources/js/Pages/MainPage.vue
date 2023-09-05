@@ -82,8 +82,7 @@ defineProps({
     top: 5px;
     right: 50%;
 
-    border: 1px solid lightgray;
-    padding: 3px 5px;
+    /*padding: 3px 5px;*/
     background-color: rgba(255, 255, 255, 0.5);
     z-index: 10;
 }

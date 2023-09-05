@@ -51,14 +51,22 @@ const createBox = (id) => {
 
     &-ok {
         background-image: url("@assets/img/box-ok.webp");
+        filter: drop-shadow(2px 2px 3px);
     }
 
     &-forgotten {
         background-image: url("@assets/img/box-forgotten.webp");
+        filter: drop-shadow(2px 2px 3px);
     }
 
     &-to-create {
-        background-image: url("@assets/img/box-to-create.webp");
+        background-image: url("@assets/img/box-ok.webp");
+        opacity: 0.5;
+        filter:  blur(1px) saturate(70%) grayscale(40%) drop-shadow(2px 2px 3px);
+
+        &:hover {
+            filter: blur(0px) saturate(80%) grayscale(10%) opacity(0.7) drop-shadow(2px 2px 3px);
+        }
     }
 }
 </style>
