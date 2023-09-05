@@ -1,6 +1,6 @@
 <script setup>
-import { normalizeData, isHoldingDateExpired, daysFromCreate } from "@/common/helpers";
-import {router} from "@inertiajs/vue3";
+
+import BoxStateRow from '@/components/BoxStateRow.vue';
 
 defineProps({
     cells: {
@@ -8,10 +8,6 @@ defineProps({
         required: true,
     },
 });
-
-const editCard = (id) => {
-    router.visit(`/box/edit/${id}`);
-}
 </script>
 
 <template>
@@ -26,29 +22,9 @@ const editCard = (id) => {
       </tr>
     </thead>
     <tbody>
-      <tr
-        v-for="cell in cells"
-        :key="cell.cell"
-        class="border hover:bg-slate-200"
-        @click="editCard(cell.cell)"
-      >
-        <td class="text-center border noselect"
-            :class="{
-          'animate-pulse': isHoldingDateExpired(cell.box.created_at),
-          'text-rose-600': isHoldingDateExpired(cell.box.created_at),
-        }">{{ cell.cell }}</td>
-
-        <td class="text-center border noselect">{{ cell.box.invoice }}</td>
-        <td class="hidden md:table-cell text-center border noselect">{{ cell.box.customer }}</td>
-        <td class="hidden xl:table-cell text-center border noselect">{{ cell.box.product }}</td>
-          <td class="text-center border noselect"
-              :class="{
-          'animate-pulse': isHoldingDateExpired(cell.box.created_at),
-          'text-rose-600': isHoldingDateExpired(cell.box.created_at),
-        }">
-              {{ daysFromCreate(cell.box.created_at)  }}
-          </td>
-      </tr>
+    <box-state-row v-for="cell in cells"
+                    :key="cell.id" :cell="cell"
+                    :class="`cell-${cell.box}`" />
     </tbody>
   </table>
 </template>

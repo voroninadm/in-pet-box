@@ -1,5 +1,5 @@
 <script setup>
-import BoxState from "@/components/BoxState.vue";
+import BoxStateImage from "@/components/BoxStateImage.vue";
 
 defineProps({
     cells: {
@@ -29,7 +29,7 @@ defineProps({
 
 <template>
     <div class="shelves w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-5">
-            <box-state v-for="cell in cells"
+            <box-state-image v-for="cell in cells"
                        :key="cell.id" :cell="cell"
             :class="`cell-${cell.box}`"/>
         </div>
