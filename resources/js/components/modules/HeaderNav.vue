@@ -6,57 +6,38 @@ import DropdownLink from '@/components/DropdownLink.vue';
 import ResponsiveNavLink from '@/components/ResponsiveNavLink.vue';
 import {Link} from '@inertiajs/vue3';
 
-const showingNavigationDropdown = ref(false);
+let showingNavigationDropdown = ref(false);
 
+function closeNavigationDropdown() {
+    setTimeout(() => {
+        showingNavigationDropdown.value = false
+    }, 300)
+    }
 </script>
 
 <template>
-    <nav class="bg-white border-b border-gray-100 w-full">
+    <nav class="bg-white border-b border-gray-100 w-full"
+        :class="showingNavigationDropdown ? 'z-50' : '' ">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-dots-darker">
             <div class="flex justify-between h-12">
                 <div class="flex">
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center">
-                        <Link :href="route('main')" class="transition duration-300 hover:scale-110">
+                        <Link :href="route('main')" class="transition duration-300 hover:scale-110" @click="closeNavigationDropdown">
                             <ApplicationLogo
                                 class="block h-9 w-auto fill-current text-gray-800"
+                                tabindex="0"
                             />
                         </Link>
-<!--                        <Link :href="route('box.create')" class="transition duration-300 hover:scale-110">-->
-<!--                            <svg-->
-<!--                                class="adding_icon"-->
-<!--                                xmlns="http://www.w3.org/2000/svg"-->
-<!--                                viewBox="0 0 24 24"-->
-<!--                            >-->
-<!--                                <g-->
-<!--                                    fill="none"-->
-<!--                                    stroke="#000"-->
-<!--                                    stroke-linecap="round"-->
-<!--                                    stroke-linejoin="round"-->
-<!--                                    stroke-width="2"-->
-<!--                                >-->
-<!--                                    <rect-->
-<!--                                        width="20"-->
-<!--                                        height="20"-->
-<!--                                        x="2"-->
-<!--                                        y="2"-->
-<!--                                        data-name="&#45;&#45;Rectangle"-->
-<!--                                        rx="2"-->
-<!--                                        ry="2"-->
-<!--                                    />-->
-<!--                                    <path d="M15.5 12h-7m3.5 3.5v-7"/>-->
-<!--                                </g>-->
-<!--                            </svg>-->
-<!--                        </Link>-->
                     </div>
 
-                    <!-- Navigation Links -->
-                    <!--                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">-->
-                    <!--                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">-->
-                    <!--                                    Главная-->
-                    <!--                                </NavLink>-->
-                    <!--                            </div>-->
+<!--                     Navigation Links-->
+<!--                                                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">-->
+<!--                                                    <NavLink :href="route('dashboard')" :active="route().current('dashboard')">-->
+<!--                                                        Главная-->
+<!--                                                    </NavLink>-->
+<!--                                                </div>-->
                 </div>
 
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -67,8 +48,7 @@ const showingNavigationDropdown = ref(false);
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
-                                            >
+                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                                                 {{ $page.props.auth.user.name }}
 
                                                 <svg
@@ -89,6 +69,7 @@ const showingNavigationDropdown = ref(false);
 
                             <template #content>
                                 <DropdownLink :href="route('profile.edit')"> Мой профиль</DropdownLink>
+                                <DropdownLink v-if="$page.props.auth.user.is_admin" :href="route('profile.edit')"> Пользователи</DropdownLink>
                                 <DropdownLink :href="route('logout')" method="post" as="button">
                                     Выйти
                                 </DropdownLink>
@@ -142,7 +123,7 @@ const showingNavigationDropdown = ref(false);
             <!--                    </div>-->
 
             <!-- Responsive Settings Options -->
-            <div class="pt-2 pb-1 border border-gray-200">
+            <div class="pt-3 pb-3 border border-gray-200">
                 <div class="px-4 text-center">
                     <div class="font-medium text-base text-gray-800">
                         {{ $page.props.auth.user.name }}
@@ -151,7 +132,12 @@ const showingNavigationDropdown = ref(false);
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <ResponsiveNavLink :href="route('profile.edit')"> Мой профиль</ResponsiveNavLink>
+                    <ResponsiveNavLink :href="route('profile.edit')" :active="route().current('profile.edit')" @click="closeNavigationDropdown"> Мой профиль</ResponsiveNavLink>
+                    <ResponsiveNavLink v-if="$page.props.auth.user.is_admin"
+                                       :href="route('profile.edit')"
+                                       :active="route().current('profile.edit')">
+                        Пользователи
+                    </ResponsiveNavLink>
                     <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                         Выйти
                     </ResponsiveNavLink>

@@ -72,7 +72,8 @@ defineProps({
 
 <style scoped lang="scss">
 .toggle {
-    position: absolute;
+    position: relative;
+    margin-top: -50px;
     display: flex;
     justify-content: space-between;
     align-self: center;
@@ -110,6 +111,6 @@ defineProps({
 .active {
     border-color: rgba(221, 0, 0, 0.78);
     border-bottom-color: transparent;
-    height: 75px;
+    height: 85px;
 }
 </style>
