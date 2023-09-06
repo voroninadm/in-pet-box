@@ -20,12 +20,15 @@ const createBox = (id) => {
 <template>
     <div v-if="cell.box"
         class="box"
+         tabindex="0"
         :class="[isHoldingDateExpired(cell.box.created_at) ? 'box-forgotten' : 'box-ok']"
          @click="editBox(cell.box.id)"
     ></div>
     <div v-else
          class="box box-to-create"
-         @click="createBox(cell.id)"></div>
+         tabindex="0"
+         @click="createBox(cell.id)"
+         @keydown.enter="createBox(cell.id)"></div>
 </template>
 
 
@@ -65,6 +68,10 @@ const createBox = (id) => {
         filter:  blur(1px) saturate(70%) grayscale(40%) drop-shadow(2px 2px 3px);
 
         &:hover {
+            filter: blur(0px) saturate(80%) grayscale(10%) opacity(0.7) drop-shadow(2px 2px 3px);
+        }
+
+        &:focus {
             filter: blur(0px) saturate(80%) grayscale(10%) opacity(0.7) drop-shadow(2px 2px 3px);
         }
     }

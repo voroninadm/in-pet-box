@@ -6,15 +6,7 @@ import {
 
 import moment from "moment/dist/moment";
 import ru from "moment/dist/locale/ru";
-import {ref} from "vue";
 moment.updateLocale("ru", ru);
-
-export const isMobileOrSmallScreen = ref(
-  /Mobile|webOS|BlackBerry|IEMobile|MeeGo|mini|Fennec|Windows Phone|Android|iP(ad|od|hone)/i.test(
-    navigator.userAgent
-  ) ||
-  window.screen.width <= minScreenWidth ||
-  window.screen.height <= minScreenHeight);
 
 // data functions
 export const currentDate = moment();
@@ -35,6 +27,5 @@ export const deadlineDate = (date = new Date()) => {
 };
 
 export const daysFromCreate = (date) => {
-    let startHoldingDate = moment(date);
     return moment(date).fromNow();
 };

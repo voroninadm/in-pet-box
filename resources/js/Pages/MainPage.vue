@@ -1,13 +1,9 @@
 <script setup>
 import { shallowRef } from "vue";
-import { isMobileOrSmallScreen } from "@/common/helpers";
-
 import HomeWithImage from "@/components/modules/HomeWithImage.vue";
 import HomeWithTable from "@/components/modules/HomeWithTable.vue";
 
-const homePage = isMobileOrSmallScreen.value
-    ? shallowRef(HomeWithTable)
-    : shallowRef(HomeWithImage);
+const homePage = shallowRef(HomeWithImage);
 
 const setImageView = () => (homePage.value = HomeWithImage);
 const setTableView = () => (homePage.value = HomeWithTable);
@@ -18,13 +14,11 @@ defineProps({
         required: true,
     },
 });
+
 </script>
 
 <template>
-    <div
-        v-if="!isMobileOrSmallScreen"
-        class="toggle"
-    >
+    <div class="toggle animate__animated animate__fadeInDown">
         <button
             class="toggle__button"
             :class="{ active: homePage === HomeWithImage }"
@@ -35,7 +29,7 @@ defineProps({
                 fill="none"
                 stroke="currentColor"
                 stroke-width="1.5"
-                class="w-6 h-6"
+                class="w-7 h-7"
                 viewBox="0 0 24 24"
             >
                 <path
@@ -55,7 +49,7 @@ defineProps({
                 fill="none"
                 stroke="currentColor"
                 stroke-width="1.5"
-                class="w-6 h-6"
+                class="w-7 h-7"
                 viewBox="0 0 24 24"
             >
                 <path
@@ -76,23 +70,46 @@ defineProps({
     </transition>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .toggle {
     position: absolute;
-    top: 5px;
-    right: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    width: 70px;
 
-    /*padding: 3px 5px;*/
-    background-color: rgba(255, 255, 255, 0.5);
-    z-index: 10;
+
 }
 
 .toggle__button {
-    padding: 2px;
-    border: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    width: 0;
+    height: 65px;
+    background-color: transparent;
+    border: solid 15px rgba(177, 58, 34, 0.45);
+    border-bottom: solid 15px transparent;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    transition: all 0.2s;
+    cursor: pointer;
+
+    &:hover {
+         height: 85px;
+        outline: none;
+     }
+
+    &:focus {
+        height: 85px;
+        outline: none;
+    }
 }
 
 .active {
-    background-color: rgba(79, 234, 105, 0.328);
+    border-color: rgba(221, 0, 0, 0.78);
+    border-bottom-color: transparent;
+    height: 75px;
 }
 </style>

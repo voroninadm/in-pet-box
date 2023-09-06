@@ -22,6 +22,7 @@ const createBox = (id) => {
     <tr v-if="cell.box"
         class="border hover:bg-slate-200"
         @click="editBox(cell.box.id)"
+        tabindex="0"
     >
         <td class="text-center border noselect"
             :class="{
@@ -43,6 +44,7 @@ const createBox = (id) => {
 
     <tr v-else
         class="border hover:bg-slate-200"
+        tabindex="0"
         @click="createBox(cell.id)">
         <td class="text-center border noselect bg-green-100/50">{{ cell.id }}</td>
         <td colspan="4" class="text-center border noselect"></td>

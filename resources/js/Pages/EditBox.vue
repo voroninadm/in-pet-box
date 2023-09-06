@@ -43,16 +43,6 @@ const closeModal = () => {
     isModalOpen.value = false;
 }
 
-// const submit = () => {
-//     form.post(route('box.store'), {
-//         onFinish: () => {
-//             form.reset();
-//         },
-//         onSuccess: () => {
-//             form.reset();
-//         }
-//     });
-// }
 </script>
 
 <template>
