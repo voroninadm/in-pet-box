@@ -20,6 +20,9 @@ Route::middleware('guest')->get(('/'), function () {
     return Inertia::render('WelcomePage');
 })->name('login');
 
+Route::middleware('auth')->get(('/404'), function () {
+    return Inertia::render('ErrorPage');
+})->name('404');
 
 // Auth routes
 Route::middleware('auth')->group(function () {
@@ -37,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/box/update/{box}', [BoxController::class, 'update'])->name('box.update');
     Route::delete('/box/destroy/{box}', [BoxController::class, 'destroy'])->name('box.destroy');
 
+    Route::get('/box/history', [BoxController::class, 'history'])->name('box.history');
     Route::get('/box/history', [BoxController::class, 'history'])->name('box.history');
 });
 
