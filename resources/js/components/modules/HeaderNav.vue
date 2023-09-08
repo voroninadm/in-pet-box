@@ -70,6 +70,7 @@ function closeNavigationDropdown() {
                             <template #content>
                                 <DropdownLink :href="route('profile.edit')"> Мой профиль</DropdownLink>
                                 <DropdownLink v-if="$page.props.auth.user.is_admin" :href="route('profile.edit')"> Пользователи</DropdownLink>
+                                <DropdownLink :href="route('box.history')"> История</DropdownLink>
                                 <DropdownLink :href="route('logout')" method="post" as="button">
                                     Выйти
                                 </DropdownLink>
@@ -138,6 +139,7 @@ function closeNavigationDropdown() {
                                        :active="route().current('profile.edit')">
                         Пользователи
                     </ResponsiveNavLink>
+                    <ResponsiveNavLink :href="route('box.history')" :active="route().current('box.history')" @click="closeNavigationDropdown"> История</ResponsiveNavLink>
                     <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                         Выйти
                     </ResponsiveNavLink>

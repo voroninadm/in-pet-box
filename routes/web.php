@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/box/edit/{box}', [BoxController::class, 'edit'])->name('box.edit');
     Route::patch('/box/update/{box}', [BoxController::class, 'update'])->name('box.update');
     Route::delete('/box/destroy/{box}', [BoxController::class, 'destroy'])->name('box.destroy');
+
+    Route::get('/box/history', [BoxController::class, 'history'])->name('box.history');
 });
 
 require __DIR__.'/auth.php';

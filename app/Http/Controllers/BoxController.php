@@ -72,4 +72,11 @@ class BoxController extends Controller
         $box->delete();
         return to_route('main');
     }
+
+    public function history() {
+        $boxes = Box::withTrashed()->orderBy('created_at')->get();
+        return Inertia::render('HistoryPage', [
+            'boxes' => $boxes
+        ]);
+    }
 }

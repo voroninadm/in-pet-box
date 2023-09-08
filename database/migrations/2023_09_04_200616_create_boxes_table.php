@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('invoice');
             $table->string('customer');
             $table->string('product');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
