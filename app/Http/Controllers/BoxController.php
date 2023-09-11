@@ -25,15 +25,15 @@ class BoxController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($id)
+    public function create(Cell $cell)
     {
-        if($id > Cell::TOTAL_CELLS || $id < 0) {
-            return Inertia::render('ErrorPage');
-        }
+//        if($id > Cell::TOTAL_CELLS || $id < 0) {
+//            return Inertia::render('ErrorPage');
+//        }
         $lastAddedBox = DB::table('boxes')->latest('id')->first();
 
         return Inertia::render('CreateBox', [
-            'cellId' => $id,
+            'cellId' => $cell['id'],
             'lastAddedBox' => $lastAddedBox
         ]);
     }
