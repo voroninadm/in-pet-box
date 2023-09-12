@@ -76,7 +76,7 @@ class BoxController extends Controller
     }
 
     public function history() {
-        $boxes = Box::withTrashed()->orderBy('created_at')->get();
+        $boxes = Box::withTrashed()->orderBy('created_at', 'asc')->paginate(3);
         return Inertia::render('HistoryPage', [
             'boxes' => $boxes
         ]);
