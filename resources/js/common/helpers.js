@@ -1,8 +1,4 @@
-import {
-  totalDaysHolding,
-  minScreenWidth,
-  minScreenHeight,
-} from "@/common/constants";
+import {totalDaysHolding} from "@/common/constants";
 
 import moment from "moment/dist/moment";
 import ru from "moment/dist/locale/ru";

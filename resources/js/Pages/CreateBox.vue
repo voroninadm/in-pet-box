@@ -4,10 +4,11 @@ import TextInput from '@/components/TextInput.vue';
 import InputError from '@/components/InputError.vue';
 import {useForm, router} from "@inertiajs/vue3";
 import SaveButton from "@/components/buttons/SaveButton.vue";
-import PrimaryButton from "@/components/PrimaryButton.vue";
-
 
 import {totalDaysHolding} from "@/common/constants";
+
+console.log(import.meta.env.TOTAL_DAYS_HOLDING);
+
 import {
     normalizeData,
     deadlineDate,

@@ -6,8 +6,6 @@ import {router, useForm} from "@inertiajs/vue3";
 import SaveButton from "@/components/buttons/SaveButton.vue";
 import DeleteButton from "@/components/buttons/DeleteButton.vue";
 import Modal from "@/components/Modal.vue";
-
-
 import {totalDaysHolding} from "@/common/constants";
 import {
     normalizeData,
