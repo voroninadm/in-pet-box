@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-  <table class="mt-5 mx-auto mx-4 md:mx-6 lg:mx-8 xl:mx-12">
+  <table class="mt-5 mx-auto mx-4 md:mx-6 lg:mx-8 xl:mx-12 mb-6">
     <thead>
       <tr>
         <th class="md:w-1/12 p-2">Ячейка</th>

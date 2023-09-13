@@ -10,8 +10,6 @@ class Cell extends Model
 {
     use HasFactory;
 
-    public const TOTAL_CELLS = 24;
-
     protected $fillable = [
         'cell',
     ];

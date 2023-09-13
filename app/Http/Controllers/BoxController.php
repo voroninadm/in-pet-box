@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BoxStoreRequest;
 use App\Models\Cell;
 use App\Models\Box;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class BoxController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): \Inertia\Response
+    public function index(): Response
     {
         $cells = Cell::with('box')->orderBy('id')->get();
         return Inertia::render('MainPage', [
@@ -27,9 +27,6 @@ class BoxController extends Controller
      */
     public function create(Cell $cell)
     {
-//        if($id > Cell::TOTAL_CELLS || $id < 0) {
-//            return Inertia::render('ErrorPage');
-//        }
         $lastAddedBox = DB::table('boxes')->latest('id')->first();
 
         return Inertia::render('CreateBox', [

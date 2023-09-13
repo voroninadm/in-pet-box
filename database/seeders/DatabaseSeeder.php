@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // seedind all cells
-        for ($i = 1; $i <= Cell::TOTAL_CELLS; $i++) {
+        for ($i = 1; $i <= env('TOTAL_CELLS'); $i++) {
             DB::table('cells')->insert([
                 'created_at' => now(),
                 'updated_at' => now()
