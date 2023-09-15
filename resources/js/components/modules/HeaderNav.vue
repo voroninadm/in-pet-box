@@ -70,7 +70,7 @@ function closeNavigationDropdown() {
                             <template #content>
                                 <DropdownLink :href="route('profile.edit')"> Мой профиль</DropdownLink>
                                 <DropdownLink v-if="$page.props.auth.user.is_admin" :href="route('profile.edit')"> Пользователи</DropdownLink>
-                                <DropdownLink :href="route('box.history')"> История</DropdownLink>
+                                <DropdownLink :href="route('history', { period: 'week' })"> История</DropdownLink>
                                 <DropdownLink :href="route('logout')" method="post" as="button">
                                     Выйти
                                 </DropdownLink>
@@ -133,13 +133,12 @@ function closeNavigationDropdown() {
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <ResponsiveNavLink :href="route('profile.edit')" :active="route().current('profile.edit')" @click="closeNavigationDropdown"> Мой профиль</ResponsiveNavLink>
+                    <ResponsiveNavLink :href="route('profile.edit')" @click="closeNavigationDropdown"> Мой профиль</ResponsiveNavLink>
                     <ResponsiveNavLink v-if="$page.props.auth.user.is_admin"
-                                       :href="route('profile.edit')"
-                                       :active="route().current('profile.edit')">
+                                       :href="route('profile.edit')">
                         Пользователи
                     </ResponsiveNavLink>
-                    <ResponsiveNavLink :href="route('box.history')" :active="route().current('box.history')" @click="closeNavigationDropdown"> История</ResponsiveNavLink>
+                    <ResponsiveNavLink :href="route('history', { period: 'week' })" @click="closeNavigationDropdown"> История</ResponsiveNavLink>
                     <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                         Выйти
                     </ResponsiveNavLink>

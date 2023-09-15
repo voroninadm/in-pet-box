@@ -40,8 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/box/update/{box}', [BoxController::class, 'update'])->name('box.update');
     Route::delete('/box/destroy/{box}', [BoxController::class, 'destroy'])->name('box.destroy');
 
-    Route::get('/box/history', [BoxController::class, 'history'])->name('box.history');
-    Route::get('/box/history', [BoxController::class, 'history'])->name('box.history');
+    Route::get('/history/{period}', [BoxController::class, 'history'])->name('history');
+
 });
 
 require __DIR__.'/auth.php';

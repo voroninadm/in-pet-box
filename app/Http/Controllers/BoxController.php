@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BoxStoreRequest;
 use App\Models\Cell;
 use App\Models\Box;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -72,10 +74,50 @@ class BoxController extends Controller
         return to_route('main');
     }
 
-    public function history() {
-        $boxes = Box::withTrashed()->orderBy('created_at', 'asc')->paginate(env('PAGINATION_COUNT'));
-        return Inertia::render('HistoryPage', [
-            'boxes' => $boxes
-        ]);
+    public function history(Request $request, $period)
+    {
+        $query = Box::withTrashed();
+
+        switch ($period) {
+            case 'week':
+                $query->whereBetween('created_at', [
+                    now()->startOfWeek(),
+                    now()->endOfWeek()
+                ]);
+                break;
+
+            case 'month':
+                $query->whereBetween('created_at', [
+                    now()->startOfMonth(),
+                    now()->endOfMonth()
+                ]);
+                break;
+
+            case '3months':
+                $query->whereBetween('created_at', [
+                    now()->subMonths(3),
+                    now()
+                ]);
+                break;
+
+            case 'halfyear':
+                $query->whereBetween('created_at', [
+                    now()->subMonths(6),
+                    now()
+                ]);
+                break;
+
+            case 'all':
+                break;
+
+
+            default:
+                // Обработка неправильного значения периода, например, вывод ошибки
+                abort(404, 'Неправильный период');
+        }
+
+        $data = $query->orderBy('created_at', 'asc')->paginate(env('PAGINATION_COUNT'));
+
+        return Inertia::render('HistoryPage', ['boxes' => $data]);
     }
 }

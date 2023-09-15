@@ -1,6 +1,8 @@
 <script setup>
 import {normalizeData} from "@/common/helpers.js";
 import HistoryPagination from "@/components/modules/HistoryPagination.vue"
+import {ref} from "vue";
+import {Link} from "@inertiajs/vue3";
 
 const props = defineProps({
     boxes: {
@@ -8,9 +10,19 @@ const props = defineProps({
         required: true,
     },
 });
+
+const filter = ref('week');
+
 </script>
 
 <template>
+    <div class="flex w-full mx-20 gap-6">
+        <Link :href="route('history', { period: 'week' })">Week</Link>
+        <Link :href="route('history', { period: 'month' })">Month</Link>
+        <Link :href="route('history', { period: '3months' })">3 months</Link>
+        <Link :href="route('history', { period: 'halfyear' })">halfyear</Link>
+        <Link :href="route('history', { period: 'all' })">All</Link>
+    </div>
     <table class="mt-5 mx-auto mx-4 md:mx-6 lg:mx-8 xl:mx-12">
         <thead>
         <tr>
