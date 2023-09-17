@@ -16,12 +16,22 @@ const filter = ref('week');
 </script>
 
 <template>
-    <div class="flex w-full mx-20 gap-6">
-        <Link :href="route('history', { period: 'week' })">Week</Link>
-        <Link :href="route('history', { period: 'month' })">Month</Link>
-        <Link :href="route('history', { period: '3months' })">3 months</Link>
-        <Link :href="route('history', { period: 'halfyear' })">halfyear</Link>
-        <Link :href="route('history', { period: 'all' })">All</Link>
+    <div class="grid grid-cols-2 sm:flex sm:w-full mx-20 gap-6 mt-3">
+        <Link :href="route('history', { period: 'week' })"
+              class="link"
+              :class="{ 'active': route().current('history', { period: 'week' }) }">Неделя</Link>
+        <Link :href="route('history', { period: '2weeks' })"
+              class="link"
+              :class="{ 'active': route().current('history', { period: '2weeks' }) }">2 недели</Link>
+        <Link :href="route('history', { period: 'month' })"
+              class="link"
+              :class="{ 'active': route().current('history', { period: 'month' }) }">Месяц</Link>
+        <Link :href="route('history', { period: '3months' })"
+              class="link"
+              :class="{ 'active': route().current('history', { period: '3months' }) }">3 месяца</Link>
+        <Link :href="route('history', { period: 'all' })"
+              class="link col-span-2"
+              :class="{ 'active': route().current('history', { period: 'all' }) }">Все</Link>
     </div>
     <table class="mt-5 mx-auto mx-4 md:mx-6 lg:mx-8 xl:mx-12">
         <thead>
@@ -60,5 +70,25 @@ const filter = ref('week');
     -moz-user-select: none;
     ms-user-select: none;
     user-select: none;
+}
+
+.link {
+    padding: 0 10px;
+    border-radius: 15px;
+    text-align: center;
+    background-color: rgba(157, 164, 176, 0.3);
+    transition: 0.3s;
+
+    &:hover {
+        background-color: rgba(237, 128, 67, 0.2);
+    }
+}
+
+.active {
+    background-color: rgba(237, 128, 67, 0.7);
+
+    &:hover {
+        background-color: rgba(237, 128, 67, 0.7);
+    }
 }
 </style>

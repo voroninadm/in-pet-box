@@ -86,6 +86,13 @@ class BoxController extends Controller
                 ]);
                 break;
 
+            case '2weeks':
+                $query->whereBetween('created_at', [
+                    now()->subDays(14),
+                    now()
+                ]);
+                break;
+
             case 'month':
                 $query->whereBetween('created_at', [
                     now()->startOfMonth(),
@@ -96,13 +103,6 @@ class BoxController extends Controller
             case '3months':
                 $query->whereBetween('created_at', [
                     now()->subMonths(3),
-                    now()
-                ]);
-                break;
-
-            case 'halfyear':
-                $query->whereBetween('created_at', [
-                    now()->subMonths(6),
                     now()
                 ]);
                 break;

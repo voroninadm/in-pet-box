@@ -5,7 +5,7 @@ defineProps(['boxes']);
 </script>
 
 <template>
-    <div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+    <div class="flex items-center justify-between bg-white px-10 py-4 sm:px-6">
         <div class="flex flex-1 justify-between sm:hidden">
             <Link :href="boxes.prev_page_url" as="button" :disabled="boxes.current_page == 1" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Предыдущая</Link>
             <Link :href="boxes.next_page_url" as="button" :disabled="boxes.current_page == boxes.last_page" class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Следующая</Link>
