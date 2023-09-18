@@ -16,7 +16,7 @@ const filter = ref('week');
 </script>
 
 <template>
-    <div class="grid grid-cols-2 sm:flex sm:w-full mx-20 gap-6 mt-3">
+    <div class="grid grid-cols-2 sm:flex  mx-20 gap-6 mt-3">
         <Link :href="route('history', { period: 'week' })"
               class="link"
               :class="{ 'active': route().current('history', { period: 'week' }) }">Неделя</Link>
@@ -33,7 +33,7 @@ const filter = ref('week');
               class="link col-span-2"
               :class="{ 'active': route().current('history', { period: 'all' }) }">Все</Link>
     </div>
-    <table class="mt-5 mx-auto mx-4 md:mx-6 lg:mx-8 xl:mx-12">
+    <table v-if="boxes.data.length" class="mt-5 mx-auto mx-4 md:mx-6 lg:mx-8 xl:mx-12">
         <thead>
         <tr>
             <th class="md:w-1/12 p-2">Ячейка</th>
@@ -57,8 +57,11 @@ const filter = ref('week');
         </tr>
         </tbody>
     </table>
+    <div v-else class="flex mx-auto mt-10 text-lg text-center p-2 italic outline-dotted outline-3 outline-offset-8 outline-slate-300 rounded-lg">
+        <p >По текущему запросу записи отсутствуют или потерялись на складе...</p>
+    </div>
 
-    <history-pagination :boxes="props.boxes" />
+    <history-pagination v-if="boxes.data.length" :boxes="props.boxes" class="mt-6" />
 
 </template>
 
@@ -74,6 +77,7 @@ const filter = ref('week');
 
 .link {
     padding: 0 10px;
+    max-width: 250px;
     border-radius: 15px;
     text-align: center;
     background-color: rgba(157, 164, 176, 0.3);
