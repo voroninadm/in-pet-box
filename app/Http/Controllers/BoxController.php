@@ -109,7 +109,7 @@ class BoxController extends Controller
                 abort(404, 'Неправильный период');
         }
 
-        $data = $query->orderBy('created_at', 'asc')->paginate(env('PAGINATION_COUNT'));
+        $data = $query->orderBy('created_at', 'asc')->paginate(env('VITE_PAGINATION_COUNT'));
 
         return Inertia::render('HistoryPage', ['boxes' => $data]);
     }
@@ -119,7 +119,7 @@ class BoxController extends Controller
         $finishDate = Carbon::parse($request->finish_date);
 
         $data = Box::withTrashed()->whereBetween('created_at', [$startDate, $finishDate])->
-        orderBy('created_at', 'asc')->paginate(env('PAGINATION_COUNT'));
+        orderBy('created_at', 'asc')->paginate(env('VITE_PAGINATION_COUNT'));
 
         return Inertia::render('HistoryPage', ['boxes' => $data]);
     }

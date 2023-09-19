@@ -7,6 +7,7 @@ import {Link, useForm} from "@inertiajs/vue3";
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
+const totalDaysHolding = import.meta.env.VITE_PAGINATION_COUNT;
 const props = defineProps({
     boxes: {
         type: Object,
@@ -81,7 +82,7 @@ const submit = (modelData) => {
         <p >По текущему запросу записи отсутствуют или потерялись на складе...</p>
     </div>
 
-    <history-pagination v-if="boxes.data.length" :boxes="props.boxes" class="mt-6" />
+    <history-pagination v-if="boxes.total > totalDaysHolding" :boxes="props.boxes" class="mt-6" />
 
 </template>
 
