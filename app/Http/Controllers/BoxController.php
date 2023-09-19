@@ -113,4 +113,14 @@ class BoxController extends Controller
 
         return Inertia::render('HistoryPage', ['boxes' => $data]);
     }
+
+    public function historyFilter(Request $request) {
+        $startDate = Carbon::parse($request->start_date);
+        $finishDate = Carbon::parse($request->finish_date);
+
+        $data = Box::withTrashed()->whereBetween('created_at', [$startDate, $finishDate])->
+        orderBy('created_at', 'asc')->paginate(env('PAGINATION_COUNT'));
+
+        return Inertia::render('HistoryPage', ['boxes' => $data]);
+    }
 }

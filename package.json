@@ -19,6 +19,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "@vuepic/vue-datepicker": "^6.1.0",
         "animate.css": "^4.1.1",
         "moment": "^2.29.4"
     }

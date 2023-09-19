@@ -1,43 +1,55 @@
 <script setup>
-import {normalizeData} from "@/common/helpers.js";
+import {currentDate, normalizeData} from "@/common/helpers.js";
 import HistoryPagination from "@/components/modules/HistoryPagination.vue"
 import {ref} from "vue";
-import {Link} from "@inertiajs/vue3";
+import {Link, useForm} from "@inertiajs/vue3";
+
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const props = defineProps({
     boxes: {
-        type: Array,
+        type: Object,
         required: true,
     },
 });
 
 const filter = ref('week');
 
+const date = ref();
+const form = useForm({
+    start_date: null,
+    finish_date: null
+});
+const submit = (modelData) => {
+    date.value = modelData;
+    form.start_date = date.value[0];
+    form.finish_date = date.value[1];
+    form.post(route('history.filter'));
+}
 </script>
 
 <template>
 
-    <div class="grid grid-cols-2 sm:flex  mx-20 gap-6 mt-3">
+    <div class="grid grid-cols-2 sm:flex items-center mx-20 gap-6 mt-3">
         <Link :href="route('history', { period: 'week' })"
-              class="link"
-              :class="{ 'active': route().current('history', { period: 'week' }) }">Неделя</Link>
+              class="history-link"
+              :class="{ 'history-link__active': route().current('history', { period: 'week' }) }">Неделя</Link>
         <Link :href="route('history', { period: '2weeks' })"
-              class="link"
-              :class="{ 'active': route().current('history', { period: '2weeks' }) }">2 недели</Link>
+              class="history-link"
+              :class="{ 'history-link__active': route().current('history', { period: '2weeks' }) }">2 недели</Link>
         <Link :href="route('history', { period: 'month' })"
-              class="link"
-              :class="{ 'active': route().current('history', { period: 'month' }) }">Месяц</Link>
+              class="history-link"
+              :class="{ 'history-link__active': route().current('history', { period: 'month' }) }">Месяц</Link>
         <Link :href="route('history', { period: 'all' })"
-              class="link"
-              :class="{ 'active': route().current('history', { period: 'all' }) }">Все</Link>
+              class="history-link"
+              :class="{ 'history-link__active': route().current('history', { period: 'all' }) }">Все</Link>
 
-        <div class=" flex gap-3 px-2 border rounded-lg border-gray-100">
-            <label> C
-                <input class="px-2 py-0 border-none bg-slate-50 rounded-lg" type="date">
-            </label>
-            <label> По
-                <input class="px-2 py-0 border-none bg-slate-50 rounded-lg" type="date">
-            </label>
+        <div class="grid-cols-2 w-52 sm:w-96">
+            <VueDatePicker locale="ru" :format="'dd.MM.yyyy HH:mm'" range auto-apply
+                           placeholder="Выберите даты" :model-value="date" @update:model-value="submit"
+                           input-class-name="dp-custom-input" calendar-cell-class-name="dp-custom-cell">
+            </VueDatePicker>
         </div>
     </div>
 
@@ -73,7 +85,7 @@ const filter = ref('week');
 
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -83,8 +95,8 @@ const filter = ref('week');
     user-select: none;
 }
 
-.link {
-    padding: 0 10px;
+.history-link {
+    padding: 5px 10px;
     max-width: 250px;
     border-radius: 15px;
     text-align: center;
@@ -96,11 +108,25 @@ const filter = ref('week');
     }
 }
 
-.active {
+.history-link__active {
     background-color: rgba(237, 128, 67, 0.7);
 
     &:hover {
         background-color: rgba(237, 128, 67, 0.7);
     }
+}
+
+.dp-custom-input{
+    &:focus {
+        border-color: rgba(237, 128, 67, 0.7);
+        --tw-ring-color: rgba(237, 128, 67, 0.7);
+    }
+}
+
+.dp__theme_light {
+    --dp-primary-color: rgba(237, 128, 67, 0.7);
+    --dp-primary-text-color: black;
+    --dp-hover-color: #ffeeee;
+    --tw-ring-color: rgba(237, 128, 67, 0.7);
 }
 </style>

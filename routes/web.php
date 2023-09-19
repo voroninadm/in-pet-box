@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/box/destroy/{box}', [BoxController::class, 'destroy'])->name('box.destroy');
 
     Route::get('/history/{period}', [BoxController::class, 'history'])->name('history');
+    Route::post('/history/filter', [BoxController::class, 'historyFilter'])->name('history.filter');
 
 });
 
