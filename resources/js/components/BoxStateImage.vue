@@ -23,7 +23,9 @@ const createBox = (id) => {
          tabindex="0"
         :class="[isHoldingDateExpired(cell.box.created_at) ? 'box-forgotten' : 'box-ok']"
          @click="editBox(cell.box.id)"
-    ></div>
+    >
+        <span class="box__cell">{{ cell.id }}</span>
+    </div>
     <div v-else
          class="box box-to-create"
          tabindex="0"
@@ -40,6 +42,7 @@ const createBox = (id) => {
 
     background-size: contain;
     background-repeat: no-repeat;
+    z-index: 10;
 
     &:hover {
         scale: 1.1;
@@ -74,6 +77,17 @@ const createBox = (id) => {
         &:focus {
             filter: blur(0px) saturate(80%) grayscale(10%) opacity(0.7) drop-shadow(2px 2px 3px);
         }
+    }
+
+    &__cell {
+        position: relative;
+        font-size: small;
+        top:80%;
+        left: 30%;
+        background-color: rgba(255, 138, 35, 0.5);
+        border-radius: 20px;
+        padding: 0 10px;
+        text-align: center;
     }
 }
 </style>
