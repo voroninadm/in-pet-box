@@ -16,6 +16,7 @@ const filter = ref('week');
 </script>
 
 <template>
+
     <div class="grid grid-cols-2 sm:flex  mx-20 gap-6 mt-3">
         <Link :href="route('history', { period: 'week' })"
               class="link"
@@ -26,13 +27,20 @@ const filter = ref('week');
         <Link :href="route('history', { period: 'month' })"
               class="link"
               :class="{ 'active': route().current('history', { period: 'month' }) }">Месяц</Link>
-        <Link :href="route('history', { period: '3months' })"
-              class="link"
-              :class="{ 'active': route().current('history', { period: '3months' }) }">3 месяца</Link>
         <Link :href="route('history', { period: 'all' })"
-              class="link col-span-2"
+              class="link"
               :class="{ 'active': route().current('history', { period: 'all' }) }">Все</Link>
+
+        <div class=" flex gap-3 px-2 border rounded-lg border-gray-100">
+            <label> C
+                <input class="px-2 py-0 border-none bg-slate-50 rounded-lg" type="date">
+            </label>
+            <label> По
+                <input class="px-2 py-0 border-none bg-slate-50 rounded-lg" type="date">
+            </label>
+        </div>
     </div>
+
     <table v-if="boxes.data.length" class="mt-5 mx-auto mx-4 md:mx-6 lg:mx-8 xl:mx-12">
         <thead>
         <tr>

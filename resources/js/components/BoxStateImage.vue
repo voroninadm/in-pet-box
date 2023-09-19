@@ -30,7 +30,9 @@ const createBox = (id) => {
          class="box box-to-create"
          tabindex="0"
          @click="createBox(cell.id)"
-         @keydown.enter="createBox(cell.id)"></div>
+         @keydown.enter="createBox(cell.id)">
+        <span class="box__cell">{{ cell.id }}</span>
+    </div>
 </template>
 
 

@@ -1,7 +1,7 @@
 <script setup>
 import {Link} from "@inertiajs/vue3";
 
-defineProps(['boxes']);
+const props = defineProps(['boxes']);
 </script>
 
 <template>
@@ -19,12 +19,12 @@ defineProps(['boxes']);
         </div>
         <div class="flex flex-1 justify-between sm:hidden">
             <div>
-                <Link :href="boxes.prev_page_url" as="button" :disabled="boxes.current_page == 1"
-                      class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                <Link :href="boxes.prev_page_url" as="button" :disabled="props.boxes.current_page == 1"
+                      class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 enable:hover:bg-gray-50 disabled:opacity-75">
                     Предыдущая
                 </Link>
                 <Link :href="boxes.next_page_url" as="button" :disabled="boxes.current_page == boxes.last_page"
-                      class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                      class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700  enable:hover:bg-gray-50 disabled:opacity-75">
                     Следующая
                 </Link>
             </div>
@@ -46,7 +46,7 @@ defineProps(['boxes']);
                 <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
                     <Link :href="boxes.prev_page_url"
                           as="button" :disabled="boxes.current_page == 1"
-                          class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                          class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 enable:hover:bg-gray-50 focus:z-20 focus:outline-offset-0 disabled:opacity-75">
                         <span class="sr-only">Предыдущая</span>
                         <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd"
@@ -64,7 +64,7 @@ defineProps(['boxes']);
 
                     <Link :href="boxes.next_page_url"
                           as="button" :disabled="boxes.current_page == boxes.last_page"
-                          class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                          class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 enable:hover:bg-gray-50 focus:z-20 focus:outline-offset-0 disabled:opacity-75">
                         <span class="sr-only">Следующая</span>
                         <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd"

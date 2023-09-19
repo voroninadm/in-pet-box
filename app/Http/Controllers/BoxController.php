@@ -100,13 +100,6 @@ class BoxController extends Controller
                 ]);
                 break;
 
-            case '3months':
-                $query->whereBetween('created_at', [
-                    now()->subMonths(3),
-                    now()
-                ]);
-                break;
-
             case 'all':
                 break;
 
