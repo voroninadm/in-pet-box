@@ -9,7 +9,7 @@
     width: 100vw;
     height: 100vh;
     position: relative;
-    background-image: radial-gradient(circle, rgba(2, 0, 36, 0.6161247702205883) 0%, rgba(59, 61, 61, 0.6133236497724089) 67%), url("@assets/img/shelves.webp");
+    background-image: radial-gradient(circle, rgba(187, 115, 22, 0.5) 10%, rgba(7, 74, 123, 0.7) 67%);
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
