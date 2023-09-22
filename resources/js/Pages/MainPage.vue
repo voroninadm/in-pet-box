@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef } from "vue";
+import {onMounted, shallowRef} from "vue";
 import HomeWithImage from "@/components/modules/HomeWithImage.vue";
 import HomeWithTable from "@/components/modules/HomeWithTable.vue";
 
@@ -15,6 +15,12 @@ defineProps({
     },
 });
 
+onMounted(() => {
+    Echo.channel("box-created")
+        .listen('BroadcastBoxCreatedEvent', (e) => {
+            console.log(e.box);
+        });
+})
 </script>
 
 <template>

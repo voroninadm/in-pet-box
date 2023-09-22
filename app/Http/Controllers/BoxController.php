@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BroadcastBoxCreatedEvent;
 use App\Http\Requests\BoxStoreRequest;
 use App\Models\Cell;
 use App\Models\Box;
@@ -52,7 +53,10 @@ class BoxController extends Controller
     public function store(BoxStoreRequest $request)
     {
         $box = Box::create($request->validated());
-        Notification::send(auth()->user(), new BoxCreatedNotification($box));
+        //send notification to telegram
+//        Notification::send(auth()->user(), new BoxCreatedNotification($box));
+
+        event(new BroadcastBoxCreatedEvent($box));
         return to_route('main');
     }
 
@@ -71,8 +75,10 @@ class BoxController extends Controller
      */
     public function update(BoxStoreRequest $request, Box $box)
     {
-        Notification::route('telegram', 'TELEGRAM_CHAT_ID')
-            ->notify(new BoxUpdatedNotification($request, $box));
+        // send notification to telegram
+//        Notification::route('telegram', 'TELEGRAM_CHAT_ID')
+//            ->notify(new BoxUpdatedNotification($request, $box));
+
         $box->update($request->validated());
         return to_route('main');
     }
@@ -83,8 +89,11 @@ class BoxController extends Controller
     public function destroy(Box $box)
     {
         $box->delete();
-        Notification::route('telegram', 'TELEGRAM_CHAT_ID')
-            ->notify(new BoxDeletedNotification($box));
+
+        // send notification to telegram
+//        Notification::route('telegram', 'TELEGRAM_CHAT_ID')
+//            ->notify(new BoxDeletedNotification($box));
+
         return to_route('main');
     }
 
