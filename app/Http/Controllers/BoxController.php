@@ -2,17 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BroadcastBoxCreatedEvent;
 use App\Http\Requests\BoxStoreRequest;
 use App\Models\Cell;
 use App\Models\Box;
+use App\Notifications\BoxCreatedNotification;
+use App\Notifications\BoxDeletedNotification;
+use App\Notifications\BoxUpdatedNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Notifications\SendNotification;
+use Illuminate\Support\Facades\Notification;
 
 class BoxController extends Controller
 {
+    use Notifiable;
+
+
     /**
      * Display a listing of the resource.
      */
@@ -42,7 +52,8 @@ class BoxController extends Controller
      */
     public function store(BoxStoreRequest $request)
     {
-        Box::create($request->validated());
+        $box = Box::create($request->validated());
+        Notification::send(auth()->user(), new BoxCreatedNotification($box));
         return to_route('main');
     }
 
@@ -61,6 +72,8 @@ class BoxController extends Controller
      */
     public function update(BoxStoreRequest $request, Box $box)
     {
+        Notification::route('telegram', 'TELEGRAM_CHAT_ID')
+            ->notify(new BoxUpdatedNotification($request, $box));
         $box->update($request->validated());
         return to_route('main');
     }
@@ -71,6 +84,8 @@ class BoxController extends Controller
     public function destroy(Box $box)
     {
         $box->delete();
+        Notification::route('telegram', 'TELEGRAM_CHAT_ID')
+            ->notify(new BoxDeletedNotification($box));
         return to_route('main');
     }
 
