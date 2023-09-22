@@ -47,7 +47,7 @@ class BoxUpdatedNotification extends Notification
             ->line("Товар в ячейке {$cell} изменен!")
             ->line('')
             ->line('Накладная: ' . $this->box->invoice)
-            ->line('Измененный накладная: ' . $this->request->invoice)
+            ->line('Измененная накладная: ' . $this->request->invoice)
             ->line('Заказчик: ' . $this->box->customer)
             ->line('Измененный заказчик: ' . $this->request->customer)
             ->line('Заказ: ' . $this->box->product)

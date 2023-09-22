@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\BroadcastBoxCreatedEvent;
 use App\Http\Requests\BoxStoreRequest;
 use App\Models\Cell;
 use App\Models\Box;
