@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BroadcastBoxChangedEvent;
 use App\Http\Requests\BoxStoreRequest;
 use App\Models\Cell;
 use App\Models\Box;
@@ -12,10 +13,10 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Notifications\SendNotification;
-use Illuminate\Support\Facades\Notification;
+
 
 class BoxController extends Controller
 {
@@ -51,8 +52,13 @@ class BoxController extends Controller
      */
     public function store(BoxStoreRequest $request)
     {
+        $cell_id = $request->cell_id;
         $box = Box::create($request->validated());
-        Notification::send(auth()->user(), new BoxCreatedNotification($box));
+        //send notification to telegram
+//        Notification::send(auth()->user(), new BoxCreatedNotification($box));
+
+        // send broadcast to channel that box changed
+        event(new BroadcastBoxChangedEvent($cell_id, $box));
         return to_route('main');
     }
 
@@ -71,9 +77,16 @@ class BoxController extends Controller
      */
     public function update(BoxStoreRequest $request, Box $box)
     {
-        Notification::route('telegram', 'TELEGRAM_CHAT_ID')
-            ->notify(new BoxUpdatedNotification($request, $box));
+        $cell_id = $box->cell_id;
+
+        // send notification to telegram
+//        Notification::send(auth()->user(), new BoxUpdatedNotification($request, $box));
+
         $box->update($request->validated());
+        $updatedBox = Box::find($box->id);
+
+        // send broadcast to channel that box changed
+        event(new BroadcastBoxChangedEvent($cell_id, $updatedBox));
         return to_route('main');
     }
 
@@ -82,9 +95,15 @@ class BoxController extends Controller
      */
     public function destroy(Box $box)
     {
+        $cell_id = $box->cell_id;
+
+        // send notification to telegram
+//        Notification::send(auth()->user(), new BoxDeletedNotification($box));
+
+        // send broadcast to channel that box changed
+        event(new BroadcastBoxChangedEvent($cell_id, null));
+
         $box->delete();
-        Notification::route('telegram', 'TELEGRAM_CHAT_ID')
-            ->notify(new BoxDeletedNotification($box));
         return to_route('main');
     }
 

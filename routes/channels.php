@@ -17,14 +17,6 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('box-created-in-{id}-cell', function ( $id) {
-    return true;
-});
-
-Broadcast::channel('box-updated-in-{id}-cell', function ( $id) {
-    return true;
-});
-
-Broadcast::channel('box-deleted-in-{id}-cell', function ( $id) {
+Broadcast::channel('box-changed', function () {
     return true;
 });

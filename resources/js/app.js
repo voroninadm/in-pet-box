@@ -1,6 +1,8 @@
 import '../css/app.css';
 import 'animate.css';
 
+import './bootstrap.js';
+
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
