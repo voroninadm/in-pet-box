@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, shallowRef} from "vue";
+import {onMounted, shallowRef, ref} from "vue";
 import HomeWithImage from "@/components/modules/HomeWithImage.vue";
 import HomeWithTable from "@/components/modules/HomeWithTable.vue";
 
@@ -8,17 +8,25 @@ const homePage = shallowRef(HomeWithImage);
 const setImageView = () => (homePage.value = HomeWithImage);
 const setTableView = () => (homePage.value = HomeWithTable);
 
-defineProps({
+
+const props = defineProps({
     cells: {
         type: Array,
         required: true,
     },
 });
+const cells = ref([]);
+
 
 onMounted(() => {
-    Echo.channel("box-created")
-        .listen('BroadcastBoxCreatedEvent', (e) => {
-            console.log(e.box);
+    cells.value = props.cells;
+
+    Echo.channel("box-changed")
+        .listen('BroadcastBoxChangedEvent', (e) => {
+            let cellIdForChanging = e.cell_id;
+            let changingBox = cells.value.find(cell => cell.id === cellIdForChanging);
+            changingBox.box = e.box;
+            console.log(e)
         });
 })
 </script>
