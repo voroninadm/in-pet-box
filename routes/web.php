@@ -20,9 +20,9 @@ Route::middleware('guest')->get(('/'), function () {
     return Inertia::render('WelcomePage');
 })->name('login');
 
-Route::middleware('auth')->get(('/404'), function () {
-    return Inertia::render('ErrorPage');
-})->name('404');
+//Route::middleware('auth')->get(('/404'), function () {
+//    return Inertia::render('ErrorPage');
+//})->name('404');
 
 // Auth routes
 Route::middleware('auth')->group(function () {
