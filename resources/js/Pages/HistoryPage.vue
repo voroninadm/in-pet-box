@@ -3,6 +3,7 @@ import {currentDate, normalizeData} from "@/common/helpers.js";
 import HistoryPagination from "@/components/modules/HistoryPagination.vue"
 import {ref} from "vue";
 import {Link, useForm} from "@inertiajs/vue3";
+import {Head} from '@inertiajs/vue3';
 
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
@@ -31,6 +32,7 @@ const submit = (modelData) => {
 </script>
 
 <template>
+    <Head title="История"/>
 
     <div class="grid grid-cols-2 sm:flex items-center mx-20 gap-6 mt-3">
         <Link :href="route('history', { period: 'week' })"

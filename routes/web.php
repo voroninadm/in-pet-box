@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BoxController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -20,15 +21,15 @@ Route::middleware('guest')->get(('/'), function () {
     return Inertia::render('WelcomePage');
 })->name('login');
 
-//Route::middleware('auth')->get(('/404'), function () {
-//    return Inertia::render('ErrorPage');
-//})->name('404');
-
 // Auth routes
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/users', [RegisteredUserController::class, 'users'])->name('users.show');
+    Route::post('register', [RegisteredUserController::class, 'store'])->name('users.register');
+
 });
 
 // Box routes

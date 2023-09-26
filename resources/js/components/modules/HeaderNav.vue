@@ -69,7 +69,7 @@ function closeNavigationDropdown() {
 
                             <template #content>
                                 <DropdownLink :href="route('profile.edit')"> Мой профиль</DropdownLink>
-                                <DropdownLink v-if="$page.props.auth.user.is_admin" :href="route('profile.edit')"> Пользователи</DropdownLink>
+                                <DropdownLink v-if="$page.props.auth.user.is_admin" :href="route('users.show')"> Пользователи</DropdownLink>
                                 <DropdownLink :href="route('history', { period: 'week' })"> История</DropdownLink>
                                 <DropdownLink :href="route('logout')" method="post" as="button">
                                     Выйти
@@ -135,7 +135,7 @@ function closeNavigationDropdown() {
                 <div class="mt-3 space-y-1">
                     <ResponsiveNavLink :href="route('profile.edit')" @click="closeNavigationDropdown"> Мой профиль</ResponsiveNavLink>
                     <ResponsiveNavLink v-if="$page.props.auth.user.is_admin"
-                                       :href="route('profile.edit')">
+                                       :href="route('users.show')">
                         Пользователи
                     </ResponsiveNavLink>
                     <ResponsiveNavLink :href="route('history', { period: 'week' })" @click="closeNavigationDropdown"> История</ResponsiveNavLink>

@@ -13,6 +13,7 @@ import {
     currentDate,
     isHoldingDateExpired,
 } from "@/common/helpers";
+import { Head } from '@inertiajs/vue3';
 
 import {ref} from "vue";
 
@@ -44,6 +45,9 @@ const closeModal = () => {
 </script>
 
 <template>
+
+    <Head title="Внесение изменений"/>
+
     <transition
         appear
         enter-active-class="animate__animated animate__slideInDown"

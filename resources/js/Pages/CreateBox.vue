@@ -4,6 +4,8 @@ import TextInput from '@/components/TextInput.vue';
 import InputError from '@/components/InputError.vue';
 import {useForm, router} from "@inertiajs/vue3";
 import SaveButton from "@/components/buttons/SaveButton.vue";
+import { Head } from '@inertiajs/vue3';
+
 
 import {totalDaysHolding} from "@/common/constants";
 
@@ -53,6 +55,9 @@ const click = () => {
 </script>
 
 <template>
+
+    <Head title="Добавляем на хранение"/>
+
     <transition
         appear
         enter-active-class="animate__animated animate__slideInDown"
