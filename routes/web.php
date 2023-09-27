@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/users', [RegisteredUserController::class, 'users'])->middleware('admin')->name('users.show');
+    Route::get('/users/edit/{id}', [RegisteredUserController::class, 'edit'])->middleware('admin')->name('users.edit');
+    Route::patch('/users/update', [RegisteredUserController::class, 'update'])->middleware('admin')->name('users.update');
     Route::post('register', [RegisteredUserController::class, 'store'])->name('users.register');
 
     Route::post('destroy/{id}', [DestroyUserController::class, 'destroy'])->middleware('admin')->name('users.destroy');

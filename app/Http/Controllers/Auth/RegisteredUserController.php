@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -20,7 +21,7 @@ class RegisteredUserController extends Controller
      */
     public function users(): Response
     {
-        $users = User::all();
+        $users = User::all()->except(Auth::id());
         return Inertia::render('Users/UsersPage', [
             'users' => $users
         ]);
@@ -48,5 +49,31 @@ class RegisteredUserController extends Controller
         ]);
 
         return Redirect::route('users.show');
+    }
+
+    public function edit (User $id)
+    {
+        return Inertia::render('Users/UsersProfilePage', [
+            'user' => $id
+        ]);
+    }
+
+    public function update (Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|integer',
+            'name' => 'required|string|max:255',
+            'email' => ['required','string','email','max:255', Rule::unique('users')->ignore($request->user_id)],
+            'is_admin' => 'boolean'
+        ]);
+
+        $user = User::find($request->user_id);
+        $user->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'is_admin' => $request->input('is_admin'),
+        ]);
+
+        return redirect()->back();
     }
 }
