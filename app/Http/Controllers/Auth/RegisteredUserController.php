@@ -20,7 +20,10 @@ class RegisteredUserController extends Controller
      */
     public function users(): Response
     {
-        return Inertia::render('UsersPage');
+        $users = User::all();
+        return Inertia::render('Users/UsersPage', [
+            'users' => $users
+        ]);
     }
 
     /**

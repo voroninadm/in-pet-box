@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\DestroyUserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BoxController;
 use App\Http\Controllers\ProfileController;
@@ -27,8 +28,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/users', [RegisteredUserController::class, 'users'])->name('users.show');
+    Route::get('/users', [RegisteredUserController::class, 'users'])->middleware('admin')->name('users.show');
     Route::post('register', [RegisteredUserController::class, 'store'])->name('users.register');
+
+    Route::post('destroy/{id}', [DestroyUserController::class, 'destroy'])->middleware('admin')->name('users.destroy');
 
 });
 

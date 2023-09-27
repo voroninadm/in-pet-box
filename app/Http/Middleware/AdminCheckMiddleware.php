@@ -18,7 +18,7 @@ class AdminCheckMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (!auth()->user() || !auth()->user()->is_admin) {
-            return abort(403, 'Недостаточно прав для просмотра');
+            return abort(403, 'у Вас недостаточно прав для просмотра');
         }
 
         return $next($request);

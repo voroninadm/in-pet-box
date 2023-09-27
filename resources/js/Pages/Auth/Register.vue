@@ -23,6 +23,7 @@ const submit = () => {
 </script>
 
 <template>
+
     <header>
         <h2 class="text-lg font-medium text-gray-900">Создать нового пользователя</h2>
 
@@ -30,7 +31,9 @@ const submit = () => {
             Создавая пользователя убедитесь в правильности e-mail и подберите безопасный пароль (не менее 8 символов)
         </p>
     </header>
+
     <form @submit.prevent="submit" class="mt-6 space-y-6">
+        <div class="max-w-xl">
         <div>
             <InputLabel for="name" value="Имя"/>
 
@@ -95,7 +98,7 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password_confirmation"/>
             </div>
 
-            <div class="mt-4 lg:w-1/5 lg:text-center">
+            <div class="mt-4 lg:w-1/5">
                 <label>
                     <Checkbox name="is_admin" v-model:checked="form.is_admin"/>
                     <span class="ml-2 text-sm text-gray-600">С правами администратора</span>
@@ -116,6 +119,7 @@ const submit = () => {
             >
                 <p v-if="form.recentlySuccessful" class="ml-5 text-sm text-gray-600">Сохранено.</p>
             </Transition>
+        </div>
         </div>
     </form>
 </template>
