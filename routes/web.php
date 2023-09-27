@@ -30,7 +30,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/users', [RegisteredUserController::class, 'users'])->middleware('admin')->name('users.show');
     Route::get('/users/edit/{id}', [RegisteredUserController::class, 'edit'])->middleware('admin')->name('users.edit');
-    Route::patch('/users/update', [RegisteredUserController::class, 'update'])->middleware('admin')->name('users.update');
+    Route::patch('/users/update', [RegisteredUserController::class, 'updateProfile'])->middleware('admin')->name('users.update-profile');
+    Route::patch('/users', [RegisteredUserController::class, 'updatePassword'])->middleware('admin')->name('users.update-password');
     Route::post('register', [RegisteredUserController::class, 'store'])->name('users.register');
 
     Route::post('destroy/{id}', [DestroyUserController::class, 'destroy'])->middleware('admin')->name('users.destroy');

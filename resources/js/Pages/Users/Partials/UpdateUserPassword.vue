@@ -4,18 +4,18 @@ import InputLabel from '@/components/InputLabel.vue';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import TextInput from '@/components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
 
-const passwordInput = ref(null);
-const currentPasswordInput = ref(null);
+const props = defineProps(['userId'])
+
 
 const form = useForm({
+    user_id: props.userId,
     password: '',
     password_confirmation: '',
 });
 
 const updatePassword = () => {
-    form.put(route('password.update'), {
+    form.patch(route('users.update-password'), {
         preserveScroll: true,
         onSuccess: () => form.reset(),
         onError: () => {
@@ -38,7 +38,7 @@ const updatePassword = () => {
             <h2 class="text-lg font-medium text-gray-900">Изменение пароля</h2>
 
             <p class="mt-1 text-sm text-gray-600">
-                Используйте форму в случае, если пользователь забыл пароль. Не забудьте оповестить пользователя о смене пароля!
+                Используйте только в случае, если пользователь забыл пароль. Не забудьте оповестить пользователя о смене пароля!
             </p>
         </header>
 

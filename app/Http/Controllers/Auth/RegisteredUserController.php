@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -58,7 +59,7 @@ class RegisteredUserController extends Controller
         ]);
     }
 
-    public function update (Request $request)
+    public function updateProfile (Request $request)
     {
         $request->validate([
             'user_id' => 'required|integer',
@@ -72,6 +73,20 @@ class RegisteredUserController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'is_admin' => $request->input('is_admin'),
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function updatePassword (Request $request) {
+        $request->validate([
+            'user_id' => 'required|integer',
+            'password' => ['required', Password::defaults(), 'confirmed'],
+        ]);
+        $user = User::find($request->user_id);
+
+        $user->update([
+            'password' => Hash::make($request->password)
         ]);
 
         return redirect()->back();

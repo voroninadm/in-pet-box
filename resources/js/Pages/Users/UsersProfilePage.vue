@@ -14,7 +14,7 @@ const props = defineProps(['user'])
             </div>
 
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <UpdateUserPassword />
+                <UpdateUserPassword :userId="props.user.id" />
             </div>
         </div>
     </div>
