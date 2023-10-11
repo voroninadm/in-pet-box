@@ -14,6 +14,5 @@ import HeaderNav from '@/components/modules/HeaderNav.vue';
     display: flex;
     flex-direction: column;
     height: 100vh;
-    overflow-x: hidden;
 }
 </style>

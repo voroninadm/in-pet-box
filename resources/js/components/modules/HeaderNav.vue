@@ -13,6 +13,14 @@ function closeNavigationDropdown() {
         showingNavigationDropdown.value = false
     }, 300)
 }
+
+onMounted(() => {
+    window.addEventListener('scroll', closeNavigationDropdown);
+});
+
+onBeforeUnmount(() => {
+    window.removeEventListener('scroll', closeNavigationDropdown);
+});
 </script>
 
 <template>
@@ -115,7 +123,7 @@ function closeNavigationDropdown() {
         <!-- Responsive Navigation Menu -->
         <div
             :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
-            class="sm:hidden"
+            class="sm:hidden absolute top-12 w-full bg-white text-center"
         >
             <!-- Responsive Settings Options -->
             <div class="pt-3 pb-3 border border-gray-200">
