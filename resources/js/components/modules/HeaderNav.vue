@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from 'vue';
+import {onBeforeUnmount, onMounted, ref} from 'vue';
 import ApplicationLogo from '@/components/ApplicationLogo.vue';
 import Dropdown from '@/components/Dropdown.vue';
 import DropdownLink from '@/components/DropdownLink.vue';
@@ -12,7 +12,7 @@ function closeNavigationDropdown() {
     setTimeout(() => {
         showingNavigationDropdown.value = false
     }, 300)
-    }
+}
 </script>
 
 <template>
@@ -31,13 +31,6 @@ function closeNavigationDropdown() {
                             />
                         </Link>
                     </div>
-
-<!--                     Navigation Links-->
-<!--                                                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">-->
-<!--                                                    <NavLink :href="route('dashboard')" :active="route().current('dashboard')">-->
-<!--                                                        Главная-->
-<!--                                                    </NavLink>-->
-<!--                                                </div>-->
                 </div>
 
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -68,9 +61,16 @@ function closeNavigationDropdown() {
                             </template>
 
                             <template #content>
-                                <DropdownLink :href="route('profile.edit')"> Мой профиль</DropdownLink>
-                                <DropdownLink v-if="$page.props.auth.user.is_admin" :href="route('users.show')"> Пользователи</DropdownLink>
-                                <DropdownLink :href="route('history', { period: 'week' })"> История</DropdownLink>
+                                <DropdownLink :href="route('profile.edit')"
+                                              :active="route().current('profile.edit')"> Мой профиль
+                                </DropdownLink>
+                                <DropdownLink v-if="$page.props.auth.user.is_admin"
+                                              :href="route('users.show')"
+                                              :active="route().current('users.show')"> Пользователи
+                                </DropdownLink>
+                                <DropdownLink :href="route('history', { period: 'week' })"
+                                              :active="route().current('history')"> История
+                                </DropdownLink>
                                 <DropdownLink :href="route('logout')" method="post" as="button">
                                     Выйти
                                 </DropdownLink>
@@ -117,12 +117,6 @@ function closeNavigationDropdown() {
             :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
             class="sm:hidden"
         >
-            <!--                    <div class="pt-2 pb-3 space-y-1">-->
-            <!--                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">-->
-            <!--                            Dashboard-->
-            <!--                        </ResponsiveNavLink>-->
-            <!--                    </div>-->
-
             <!-- Responsive Settings Options -->
             <div class="pt-3 pb-3 border border-gray-200">
                 <div class="px-4 text-center">
@@ -133,12 +127,18 @@ function closeNavigationDropdown() {
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <ResponsiveNavLink :href="route('profile.edit')" @click="closeNavigationDropdown"> Мой профиль</ResponsiveNavLink>
+                    <ResponsiveNavLink :href="route('profile.edit')"
+                                       @click="closeNavigationDropdown"
+                                       :active="route().current('profile.edit')"> Мой профиль</ResponsiveNavLink>
                     <ResponsiveNavLink v-if="$page.props.auth.user.is_admin"
-                                       :href="route('users.show')">
+                                       :href="route('users.show')"
+                                       @click="closeNavigationDropdown"
+                                       :active="route().current('users.show')">
                         Пользователи
                     </ResponsiveNavLink>
-                    <ResponsiveNavLink :href="route('history', { period: 'week' })" @click="closeNavigationDropdown"> История</ResponsiveNavLink>
+                    <ResponsiveNavLink :href="route('history', { period: 'week' })"
+                                       @click="closeNavigationDropdown"
+                                       :active="route().current('history')"> История</ResponsiveNavLink>
                     <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                         Выйти
                     </ResponsiveNavLink>
