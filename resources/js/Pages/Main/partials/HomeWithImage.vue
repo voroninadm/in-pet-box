@@ -16,7 +16,7 @@ defineProps({
         <div class="grid grid-cols-2 gap-y-7 justify-items-center w-full mt-5 md:mt-5 relative pb-8 pt-2">
             <box-state-image v-for="cell in cells.slice(0,8)"
                        :key="cell.id" :cell="cell"
-            :class="`cell-${cell.box}`"/>
+            />
             <img class="shelf shelf-1">
             <img class="shelf shelf-2">
             <img class="shelf shelf-3">
@@ -26,7 +26,7 @@ defineProps({
         <div class="grid grid-cols-2 gap-y-7 justify-items-center w-full mt-14 md:mt-5 relative pb-8 pt-2">
             <box-state-image v-for="cell in cells.slice(8,16)"
                              :key="cell.id" :cell="cell"
-                             :class="`cell-${cell.box}`"/>
+                             />
             <img class="shelf shelf-5">
             <img class="shelf shelf-6">
             <img class="shelf shelf-7">
@@ -36,7 +36,7 @@ defineProps({
         <div class="grid grid-cols-2 gap-y-7 justify-items-center w-full mt-14 md:mt-5 relative pb-8 pt-2">
             <box-state-image v-for="cell in cells.slice(16,24)"
                              :key="cell.id" :cell="cell"
-                             :class="`cell-${cell.box}`"/>
+                             />
             <img class="shelf shelf-9">
             <img class="shelf shelf-10">
             <img class="shelf shelf-11">
@@ -95,7 +95,7 @@ defineProps({
     }
 
     &-forgotten {
-        background-image: url("@assets/img/box-forgotten.webp");
+        background-image: url("@assets/img/box-forgotten-red.webp");
     }
 }
 </style>

@@ -1,6 +1,6 @@
 <script setup>
-import {currentDate, normalizeData} from "@/common/helpers.js";
-import HistoryPagination from "@/components/modules/HistoryPagination.vue"
+import { normalizeData } from "@/common/helpers.js";
+import HistoryPagination from "@/Pages/History/partials/HistoryPagination.vue"
 import {ref} from "vue";
 import {Link, useForm} from "@inertiajs/vue3";
 import {Head} from '@inertiajs/vue3';

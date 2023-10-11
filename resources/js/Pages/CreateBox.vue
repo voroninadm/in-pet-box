@@ -69,8 +69,8 @@ const goBackPage = () => {
         <section
             class="mx-auto product w-3/4 md:w-2/4 lg:w-1/3 xl:w-1/4 border drop-shadow-xl p-3 bg-slate-50 font-sans"
         >
-            <span @click="goBackPage()" class="w-full flex flex-row-reverse">
-                <svg class="h-7 w-7 transition duration-300 text-gray-600 hover:text-gray-400 active:text-gray-400"
+            <span @click="goBackPage()" class="absolute w-full flex flex-row-reverse">
+                <svg class="h-7 w-7 relative right-8 transition duration-300 text-gray-600 hover:text-gray-400 active:text-gray-400"
                      stroke="currentColor" fill="none" viewBox="0 0 24 24">
                     <path
                         stroke-linecap="round"
@@ -82,7 +82,7 @@ const goBackPage = () => {
             </span>
 
             <div class="product__image"></div>
-            <h1 class="text-center text-lg text-gray-700">Добавляем продукт в ячейку № {{ form.cell_id }}</h1>
+            <h1 class="text-center text-lg text-gray-700">Добавляем продукт в ячейку №&nbsp;{{ form.cell_id }}</h1>
             <div class="flex justify-center underline">
             <button class="text-xs text-center text-gray-500" @click="click()">(или продолжить последний добавленный)</button>
             </div>

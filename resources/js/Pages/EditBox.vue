@@ -58,8 +58,8 @@ const goBackPage = () => {
         <section
             class="mx-auto product w-3/4 md:w-2/4 lg:w-1/3 xl:w-1/4 border drop-shadow-xl p-3 bg-slate-50 font-sans"
         >
-            <span @click="goBackPage()" class="w-full flex flex-row-reverse">
-                <svg class="h-7 w-7 transition duration-300 text-gray-600 hover:text-gray-400 active:text-gray-400"
+            <span @click="goBackPage()" class="absolute w-full flex flex-row-reverse">
+                <svg class="h-7 w-7 relative right-8 transition duration-300 text-gray-600 hover:text-gray-400 active:text-gray-400"
                      stroke="currentColor" fill="none" viewBox="0 0 24 24">
                     <path
                         stroke-linecap="round"
@@ -70,7 +70,7 @@ const goBackPage = () => {
                 </svg>
             </span>
             <div class="product__image"></div>
-            <h1 class="text-center text-lg text-gray-700">Изменение продукта в ячейке № {{ form.cell_id }}</h1>
+            <h1 class="text-center text-lg text-gray-700">Изменение продукта в ячейке №&nbsp;{{ form.cell_id }}</h1>
             <form class="flex flex-col" @submit.prevent="$event => form.patch(`/box/update/${props.box.id}`)">
                 <div class="flex flex-col my-3 gap-2">
                     <div>

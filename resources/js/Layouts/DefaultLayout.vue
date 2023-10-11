@@ -1,5 +1,5 @@
 <script setup>
-import HeaderNav from '@/components/modules/HeaderNav.vue';
+import HeaderNav from '@/Layouts/partials/HeaderNav.vue';
 </script>
 
 <template>

@@ -29,7 +29,7 @@ class BoxController extends Controller
     public function index(): Response
     {
         $cells = Cell::with('box')->orderBy('id')->get();
-        return Inertia::render('MainPage', [
+        return Inertia::render('Main/MainPage', [
             'cells' => $cells
         ]);
     }
@@ -144,7 +144,7 @@ class BoxController extends Controller
 
         $data = $query->orderBy('created_at', 'asc')->paginate(env('VITE_PAGINATION_COUNT'));
 
-        return Inertia::render('HistoryPage', ['boxes' => $data]);
+        return Inertia::render('History/HistoryPage', ['boxes' => $data]);
     }
 
     public function historyFilter(Request $request) {

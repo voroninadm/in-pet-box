@@ -1,7 +1,7 @@
 <script setup>
 import {onMounted, shallowRef, ref} from "vue";
-import HomeWithImage from "@/components/modules/HomeWithImage.vue";
-import HomeWithTable from "@/components/modules/HomeWithTable.vue";
+import HomeWithImage from "@/Pages/Main/partials/HomeWithImage.vue";
+import HomeWithTable from "@/Pages/Main/partials/HomeWithTable.vue";
 
 const homePage = shallowRef(HomeWithImage);
 
