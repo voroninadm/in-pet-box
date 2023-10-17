@@ -6,7 +6,7 @@
 
 Программа для отслеживания товара на складе.
 <br>
-SPA-проект, написан с использованием Laravel, Vue3, InertiaJs, Vite, TailwindCss
+SPA-проект c ssr, написан с использованием Laravel, Vue3, InertiaJs, Vite, TailwindCss
 <br>
 
 ### Особенности реализации
@@ -34,6 +34,7 @@ SPA-проект, написан с использованием Laravel, Vue3, 
 - наполнить бд данными (seeding) -  php artisan db:seed
 - забилдить проект - npm run build
 - запустить задачи по расписанию - php artisan schedule:work
+- запустить сервер ssr - php artisan inertia:start-ssr 
 
 По-умолчанию создается юзер с правами админа:
 - name: admin
@@ -45,4 +46,4 @@ Frontend: Mobile-first, адаптивная верстка.
 Backend: использованы миграции, фабрики, трейты, мидлвари. 
 Отработана пагинация, дб с отошениями 1 к 1.
 Задействованы Events, Notifications, Broadcast channels
-Связь через InertisJS.
+Связь через InertisJS. Server-side rendering.
