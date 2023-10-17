@@ -1,27 +1,23 @@
 import {totalDaysHolding} from "@/common/constants";
 
-import moment from "moment/dist/moment";
-import ru from "moment/dist/locale/ru";
-moment.updateLocale("ru", ru);
-
-// data functions
-export const currentDate = moment();
+import {addDays, differenceInDays, format, formatDistanceToNow} from 'date-fns';
+import {ru} from 'date-fns/locale/index';
 
 export const normalizeData = (date) => {
-  return moment(date).format("D MMM YYYY");
+  return format(new Date(date), "do MMMM yyyy", {locale: ru});
 };
 
 export const isHoldingDateExpired = (date) => {
-  let now = moment();
-  let startHoldingDate = moment(date);
-  return now.diff(startHoldingDate, "days") > totalDaysHolding;
+  let now = new Date();
+  let startHoldingDate = new Date(date);
+  return differenceInDays(now, startHoldingDate) > totalDaysHolding;
 };
 
 export const deadlineDate = (date = new Date()) => {
-  let startHoldingDate = moment(date);
-  return startHoldingDate.add(totalDaysHolding, "days").format("D MMM YYYY");
+   let deadline = addDays(new Date(date), totalDaysHolding);
+    return format(deadline, "do MMMM yyyy", {locale: ru});
 };
 
 export const daysFromCreate = (date) => {
-    return moment(date).fromNow();
+    return formatDistanceToNow(new Date(date), {addSuffix: true, locale: ru});
 };

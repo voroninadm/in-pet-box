@@ -14,7 +14,7 @@ console.log(import.meta.env.TOTAL_DAYS_HOLDING);
 import {
     normalizeData,
     deadlineDate,
-    currentDate,
+    // currentDate,
     isHoldingDateExpired,
 } from "@/common/helpers";
 
@@ -33,7 +33,7 @@ const form = useForm({
     customer:  "",
     product:  "",
     invoice:  "",
-    date_add: currentDate,
+    date_add: new Date(),
 });
 
 const submit = () => {

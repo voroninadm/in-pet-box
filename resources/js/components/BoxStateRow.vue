@@ -1,6 +1,6 @@
 <script setup>
 import {router} from "@inertiajs/vue3";
-import { normalizeData, isHoldingDateExpired, daysFromCreate } from "@/common/helpers";
+import { isHoldingDateExpired, daysFromCreate } from "@/common/helpers";
 
 defineProps({
     cell: {

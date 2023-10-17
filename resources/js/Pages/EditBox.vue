@@ -10,7 +10,6 @@ import {totalDaysHolding} from "@/common/constants";
 import {
     normalizeData,
     deadlineDate,
-    currentDate,
     isHoldingDateExpired,
 } from "@/common/helpers";
 import {Head, Link} from '@inertiajs/vue3';

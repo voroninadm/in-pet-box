@@ -95,7 +95,7 @@ defineProps({
     }
 
     &-forgotten {
-        background-image: url("@assets/img/box-forgotten-red.webp");
+        background-image: url("@assets/img/box-forgotten.webp");
     }
 }
 </style>
